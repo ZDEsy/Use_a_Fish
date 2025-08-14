@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqfqa6uo7fvc"]
+
+[ext_resource type="Script" uid="uid://b2rctc0kbwrn1" path="res://scenes/BasicBitch.gd" id="1_to7cc"]
+
+[node name="BasicBitch" type="Node2D"]
+script = ExtResource("1_to7cc")
+fish_name = "BasicBitch"
+weight = 1.115
+col = 1
+row = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(100.025, -0.0416527)

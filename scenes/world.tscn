@@ -1,0 +1,155 @@
+[gd_scene load_steps=8 format=3 uid="uid://r8c3xcthwkgn"]
+
+[ext_resource type="Script" uid="uid://d00if4adxccts" path="res://world.gd" id="1_rwgxs"]
+[ext_resource type="Texture2D" uid="uid://bgcvoslx61d0w" path="res://assets/tilemap/Adventure Awaits Asset Pack 1.0.png" id="2_4wyf3"]
+
+[sub_resource type="Gradient" id="Gradient_rwgxs"]
+offsets = PackedFloat32Array(0, 0.623377)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rwgxs"]
+frequency = 0.0457
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4wyf3"]
+color_ramp = SubResource("Gradient_rwgxs")
+noise = SubResource("FastNoiseLite_rwgxs")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k0juu"]
+texture = ExtResource("2_4wyf3")
+3:10/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+7:10/0 = 0
+8:10/0 = 0
+9:10/0 = 0
+10:10/0 = 0
+11:10/0 = 0
+12:10/0 = 0
+13:10/0 = 0
+14:10/0 = 0
+15:10/0 = 0
+16:10/0 = 0
+3:11/0 = 0
+4:11/0 = 0
+5:11/0 = 0
+6:11/0 = 0
+7:11/0 = 0
+8:11/0 = 0
+9:11/0 = 0
+10:11/0 = 0
+11:11/0 = 0
+12:11/0 = 0
+13:11/0 = 0
+14:11/0 = 0
+15:11/0 = 0
+16:11/0 = 0
+3:12/0 = 0
+4:12/0 = 0
+5:12/0 = 0
+6:12/0 = 0
+7:12/0 = 0
+8:12/0 = 0
+9:12/0 = 0
+10:12/0 = 0
+11:12/0 = 0
+12:12/0 = 0
+13:12/0 = 0
+14:12/0 = 0
+15:12/0 = 0
+16:12/0 = 0
+3:13/0 = 0
+4:13/0 = 0
+5:13/0 = 0
+6:13/0 = 0
+7:13/0 = 0
+8:13/0 = 0
+9:13/0 = 0
+10:13/0 = 0
+11:13/0 = 0
+12:13/0 = 0
+13:13/0 = 0
+14:13/0 = 0
+15:13/0 = 0
+16:13/0 = 0
+2:14/0 = 0
+3:14/0 = 0
+4:14/0 = 0
+5:14/0 = 0
+6:14/0 = 0
+7:14/0 = 0
+8:14/0 = 0
+9:14/0 = 0
+10:14/0 = 0
+11:14/0 = 0
+12:14/0 = 0
+13:14/0 = 0
+14:14/0 = 0
+15:14/0 = 0
+16:14/0 = 0
+17:14/0 = 0
+2:15/0 = 0
+3:15/0 = 0
+4:15/0 = 0
+5:15/0 = 0
+6:15/0 = 0
+7:15/0 = 0
+8:15/0 = 0
+9:15/0 = 0
+10:15/0 = 0
+11:15/0 = 0
+12:15/0 = 0
+13:15/0 = 0
+14:15/0 = 0
+15:15/0 = 0
+16:15/0 = 0
+17:15/0 = 0
+4:16/0 = 0
+5:16/0 = 0
+6:16/0 = 0
+7:16/0 = 0
+8:16/0 = 0
+9:16/0 = 0
+10:16/0 = 0
+11:16/0 = 0
+12:16/0 = 0
+13:16/0 = 0
+14:16/0 = 0
+15:16/0 = 0
+16:16/0 = 0
+17:16/0 = 0
+5:17/0 = 0
+6:17/0 = 0
+7:17/0 = 0
+8:17/0 = 0
+9:17/0 = 0
+10:17/0 = 0
+11:17/0 = 0
+12:17/0 = 0
+13:17/0 = 0
+14:17/0 = 0
+15:17/0 = 0
+4:18/0 = 0
+5:18/0 = 0
+6:18/0 = 0
+7:18/0 = 0
+8:18/0 = 0
+9:18/0 = 0
+10:18/0 = 0
+11:18/0 = 0
+12:18/0 = 0
+15:18/0 = 0
+6:1/size_in_atlas = Vector2i(3, 3)
+6:1/0 = 0
+10:1/size_in_atlas = Vector2i(5, 3)
+10:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_71j4m"]
+sources/0 = SubResource("TileSetAtlasSource_k0juu")
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_rwgxs")
+noise_height_text = SubResource("NoiseTexture2D_4wyf3")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_71j4m")
+format = 2

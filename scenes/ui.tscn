@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnw58ycx2l4bu"]
+
+[ext_resource type="Texture2D" uid="uid://d0iul6ho4xib2" path="res://assets/uiCircle.png" id="1_nt7q6"]
+[ext_resource type="Script" uid="uid://1tjseryb6joe" path="res://scenes/ui.gd" id="1_x4jx1"]
+
+[node name="UI" type="Node2D"]
+script = ExtResource("1_x4jx1")
+
+[node name="UiCircle" type="Sprite2D" parent="."]
+position = Vector2(113, 69)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_nt7q6")
+
+[node name="UiCircle2" type="Sprite2D" parent="."]
+position = Vector2(132, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_nt7q6")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(205.5, 151)
+scale = Vector2(0.518229, 0.572917)

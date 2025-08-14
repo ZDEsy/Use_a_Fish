@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://chxe3xm3qmyiy"]
+
+[ext_resource type="Script" uid="uid://bblmipdnyxwnr" path="res://scenes/main_scene.gd" id="1_pu3yx"]
+[ext_resource type="PackedScene" uid="uid://r8c3xcthwkgn" path="res://scenes/world.tscn" id="1_pw63i"]
+[ext_resource type="PackedScene" uid="uid://wfm3hps4l4j3" path="res://scenes/player.tscn" id="1_w2twt"]
+[ext_resource type="PackedScene" uid="uid://bnw58ycx2l4bu" path="res://scenes/ui.tscn" id="3_7ykc4"]
+
+[node name="MainScene" type="Node2D"]
+script = ExtResource("1_pu3yx")
+
+[node name="World" parent="." instance=ExtResource("1_pw63i")]
+
+[node name="Player" parent="." instance=ExtResource("1_w2twt")]
+
+[node name="UI" parent="Player" instance=ExtResource("3_7ykc4")]
+position = Vector2(-1, 2)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(4, 4)
+
+[connection signal="fish_caught" from="Player" to="." method="_on_player_fish_caught"]
