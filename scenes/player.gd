@@ -108,8 +108,10 @@ func _handle_fishing_input(event: InputEvent) -> void:
 
 func _handle_combat_input(event: InputEvent) -> void:
 	if event.is_action_pressed("click"):
-		print("COMBAT")
-		#_attack_with_fish_weapon()
+		var mouse_pos = get_global_mouse_position()
+		var direction = (mouse_pos - global_position).normalized()
+		if equipped_active_fish != null:
+			equipped_active_fish.attack(global_position, direction, self)
 
 func _toggle_player_mode() -> void:
 	if player_mode == PlayerMode.FISHING:

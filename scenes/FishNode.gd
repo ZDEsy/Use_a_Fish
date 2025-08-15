@@ -39,15 +39,15 @@ func set_texture_by_cell(col: int, row: int) -> void:
 	texture = atlas
 	_apply_texture(atlas)
 
-#func attack(position: Vector2, dir: Vector2, owner: Node) -> void:
-	## default single projectile example (adapt to your Bullet scene)
-	#if ammo == 0:
-		#return
-	#var bullet_scene := preload("res://scenes/Bullet.tscn")
-	#var b = bullet_scene.instantiate()
-	#b.global_position = position
-	#b.direction = dir
-	#b.damage = damage
-	#get_tree().get_root().add_child(b)
-	#if ammo > 0:
-		#ammo -= 1
+func attack(position: Vector2, direction: Vector2, owner: Node) -> void:
+	if ammo == 0:
+		return
+	var bullet_scene := preload("res://scenes/Bullet.tscn")
+	var bullet = bullet_scene.instantiate()
+	bullet.global_position = position
+	bullet.direction = direction
+	bullet.damage = damage
+	if owner and owner.get_parent():
+		owner.get_parent().add_child(bullet)
+	if ammo > 0:
+		ammo -= 1
