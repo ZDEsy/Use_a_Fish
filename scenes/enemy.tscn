@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq12cs62ujjxy"]
+
+[ext_resource type="Script" uid="uid://cu7rsi2nyolnk" path="res://scenes/enemy.gd" id="1_7p1mj"]
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_7p1mj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="HitArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="HitArea" to="." method="_on_hit_area_area_entered"]

@@ -7,15 +7,15 @@ extends CharacterBody2D
 @onready var rod: Sprite2D = $Rod
 @onready var line: Line2D = $Rod/Line2D
 
-@onready var world_node: Node2D = $"../World"
-
 @onready var cast_timer: Timer = $Timer
 @onready var timer_2: Timer = $Timer2
 @onready var progress_bar: ProgressBar = $ProgressBar
 @onready var progress_bar_2: ProgressBar = $ProgressBar2
 @onready var ui: Node2D = $UI
 @onready var fish_sprite: Sprite2D = $FishSprite
+@onready var hook: Sprite2D = $Rod/Hook
 @export var casting_delay : float = 1.0
+@export var water_block_radius: float = 6.0
 
 var is_casting : bool = false   
 var casted : bool = false    
@@ -25,7 +25,7 @@ var cast_speed : float = 600.0
 var rope_points : Array = []     
 var rope_segments : int = 0
 @export var segment_length : float = 10.0
-@export var relaxation_iterations : int = 6 
+@export var relaxation_iterations : int = 6
 
 var min_bite_time = 1.0
 var max_bite_time = 10.0
@@ -57,6 +57,9 @@ var fishing_state = FishingState.IDLE
 func _ready():
 	cast_timer.wait_time = casting_delay
 
+func _physics_process(delta):
+	get_input()
+
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	if(not casted and not is_casting):
@@ -76,9 +79,6 @@ func get_input():
 	else:
 		velocity = Vector2(0, 0)
 		animated_sprite_2d.animation = "idle_front"
-
-func _physics_process(_delta):
-	get_input()
 	move_and_slide()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -166,6 +166,7 @@ func cast_on_click():
 
 	var mouse_global : Vector2 = get_global_mouse_position()
 	var mouse_local : Vector2 = get_local_mouse_position()
+	var world_node = $"../World"
 	var tile_map_node := world_node.get_node("TileMap") if world_node.has_node("TileMap") else null
 	if tile_map_node == null:
 		print("Warning: tilemap node not found under world node; allow cast by default")
@@ -272,6 +273,12 @@ func _process(delta: float) -> void:
 	else:
 		for i in range(rope_points.size()):
 			line.set_point_position(i, rope_points[i])
+	
+	if rope_points.size() > 0:
+		hook.position = Vector2(rope_points[last_index].x - 10, rope_points[last_index].y)
+		if rope_points.size() >= 2:
+			var prev_point = rope_points[last_index - 1]
+			hook.rotation = (rope_points[last_index] - prev_point).angle()
 
 func _on_timer_2_timeout() -> void:
 	progress_bar.visible = true

@@ -13,11 +13,18 @@ config_version=5
 config/name="Use_a_Fish"
 run/main_scene="uid://chxe3xm3qmyiy"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
 
 [autoload]
 
 Fish_Manager="*res://scripts/FishManager.gd"
+PlayerState="*res://scripts/player_state.gd"
+
+[global_group]
+
+player=""
+bullets=""
 
 [input]
 

@@ -20,6 +20,7 @@ func _on_texture_rect_fish_picked() -> void:
 	texture_rect.visible = false
 	new_fish_sprite.texture = null
 	player.equipped_active_fish = fish_to_be_picked
+	PlayerState.equipped_active_fish = player.equipped_active_fish
 
 
 func _on_player_changed_mode() -> void:
