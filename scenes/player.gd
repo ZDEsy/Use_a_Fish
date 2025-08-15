@@ -14,6 +14,7 @@ extends CharacterBody2D
 @onready var progress_bar: ProgressBar = $ProgressBar
 @onready var progress_bar_2: ProgressBar = $ProgressBar2
 @onready var ui: Node2D = $UI
+@onready var fish_sprite: Sprite2D = $FishSprite
 @export var casting_delay : float = 1.0
 
 var is_casting : bool = false   
@@ -34,7 +35,24 @@ var speed_change_timer = 0.0
 var speed_change_interval = 0.1
 
 signal fish_caught(fish)
+signal changed_mode
 var fish_to_catch
+var equipped_active_fish
+
+enum PlayerMode {
+	FISHING,
+	COMBAT
+}
+
+var player_mode = PlayerMode.FISHING
+
+enum FishingState {
+	IDLE,
+	WAITING_FOR_FISH,
+	CATCHING_FISH
+}
+
+var fishing_state = FishingState.IDLE
 
 func _ready():
 	cast_timer.wait_time = casting_delay
@@ -63,38 +81,81 @@ func _physics_process(_delta):
 	get_input()
 	move_and_slide()
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("switch_mode"):
+		_toggle_player_mode()
+		return
+
+	match player_mode:
+		PlayerMode.FISHING:
+			_handle_fishing_input(event)
+		PlayerMode.COMBAT:
+			_handle_combat_input(event)
+
+func _handle_fishing_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("click"):
 		return
-	
-	if(progress_bar.visible):
-		print("CAUGHT!!!")
-		progress_bar_2.value = 20
-		progress_bar_2.visible = true
-		progress_bar.visible = false
-		is_casting = false
-		casted = false
-		fish_to_catch = Fish_Manager.get_all_fish().pick_random().instantiate()
-	
-	if(progress_bar_2.value > 0):
-		progress_bar_2.value += (15 - fish_to_catch.difficulty*2)
-		print(fish_to_catch.fish_name)
-		if(progress_bar_2.value == 100):
-			_retract_rope()
-			progress_bar_2.value = 0
-			fish_caught.emit(fish_to_catch)
+
+	match fishing_state:
+		FishingState.WAITING_FOR_FISH:
+			_start_catching_phase()
+
+		FishingState.CATCHING_FISH:
+			_update_catching_phase()
+
+		FishingState.IDLE:
+			_handle_idle_click()
+
+func _handle_combat_input(event: InputEvent) -> void:
+	if event.is_action_pressed("click"):
+		print("COMBAT")
+		#_attack_with_fish_weapon()
+
+func _toggle_player_mode() -> void:
+	if player_mode == PlayerMode.FISHING:
+		player_mode = PlayerMode.COMBAT
+		print("Switched to Combat Mode")
+	else:
+		player_mode = PlayerMode.FISHING
+		print("Switched to Fishing Mode")
+	changed_mode.emit()
+
+func _start_catching_phase() -> void:
+	if(!progress_bar.visible):
+		_handle_idle_click()
 		return
-	
+	print("CAUGHT!!!")
+	progress_bar_2.value = 20
+	progress_bar_2.visible = true
+	progress_bar.visible = false
+	is_casting = false
+	casted = false
+	fish_to_catch = Fish_Manager.get_all_fish().pick_random().instantiate()
+	fish_to_catch.setup_fish()
+	fishing_state = FishingState.CATCHING_FISH
+
+func _update_catching_phase() -> void:
+	progress_bar_2.value += (15 - fish_to_catch.difficulty * 2)
+	print(fish_to_catch.fish_name)
+	if progress_bar_2.value >= 100:
+		_retract_rope()
+		progress_bar_2.value = 0
+		fish_caught.emit(fish_to_catch)
+		fishing_state = FishingState.IDLE
+
+func _handle_idle_click() -> void:
 	if is_casting or casted:
-		if(progress_bar.visible):
-			print("Progress bar stopped at: ", progress_bar.value)
+		if progress_bar.visible:
+			print("Progress bar stopped at:", progress_bar.value)
 			progress_bar.visible = false
 		else:
+			is_casting = false
+			casted = false
+			progress_bar.visible = false
 			_retract_rope()
-		return
-	
-	cast_on_click()
-	
+	else:
+		cast_on_click()
+		fishing_state = FishingState.WAITING_FOR_FISH
 
 func cast_on_click():
 	if not cast_timer.is_stopped():
@@ -105,12 +166,10 @@ func cast_on_click():
 	var mouse_local : Vector2 = get_local_mouse_position()
 	var tile_map_node := world_node.get_node("TileMap") if world_node.has_node("TileMap") else null
 	if tile_map_node == null:
-		# fallback: just allow cast if we cannot check (developer should set world_node correctly)
 		print("Warning: tilemap node not found under world node; allow cast by default")
 	else:
 		var local_pos : Vector2 = tile_map_node.to_local(mouse_global)
 		var cell : Vector2i = tile_map_node.local_to_map(local_pos)
-		# ask the world node if that cell is water
 		if not world_node.is_water_at(cell):
 			print("You can only cast on water tiles. That tile is not water.")
 			return
@@ -134,10 +193,10 @@ func _retract_rope() -> void:
 	rope_points.clear()
 	rope_segments = 0
 	cast_timer.start()
+	timer_2.stop()
 
 func _init_rope_from_to(start_pos : Vector2, target_pos : Vector2) -> void:
 	var dist = start_pos.distance_to(target_pos)
-	# maximum number of segments (at least 2)
 	rope_segments = max(3, int(ceil(dist / segment_length)))
 	rope_points.resize(rope_segments + 1)
 	for i in rope_points.size():
@@ -222,4 +281,3 @@ func on_caught():
 	casted = false
 	is_casting = false
 	timer_2.stop()
-	

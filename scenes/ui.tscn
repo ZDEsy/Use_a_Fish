@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnw58ycx2l4bu"]
+[gd_scene load_steps=6 format=3 uid="uid://bnw58ycx2l4bu"]
 
 [ext_resource type="Texture2D" uid="uid://d0iul6ho4xib2" path="res://assets/uiCircle.png" id="1_nt7q6"]
 [ext_resource type="Script" uid="uid://1tjseryb6joe" path="res://scenes/ui.gd" id="1_x4jx1"]
+[ext_resource type="Texture2D" uid="uid://daq8fw646j0i1" path="res://assets/player/fishing_rod.png" id="3_yev5y"]
+[ext_resource type="Texture2D" uid="uid://c0dn865nfs0" path="res://assets/equipWindow.png" id="4_gdt2y"]
+[ext_resource type="Script" uid="uid://c0trh08l6iq8w" path="res://scenes/texture_rect.gd" id="5_wm3ai"]
 
 [node name="UI" type="Node2D"]
 script = ExtResource("1_x4jx1")
@@ -20,5 +23,24 @@ texture = ExtResource("1_nt7q6")
 zoom = Vector2(4, 4)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(205.5, 151)
-scale = Vector2(0.518229, 0.572917)
+position = Vector2(113, 69)
+scale = Vector2(1, 1.106)
+texture = ExtResource("3_yev5y")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+offset_left = -33.0
+offset_top = -30.0
+offset_right = 34.0
+offset_bottom = 35.0
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
+texture = ExtResource("4_gdt2y")
+stretch_mode = 4
+script = ExtResource("5_wm3ai")
+
+[node name="NewFishSprite" type="Sprite2D" parent="TextureRect"]
+position = Vector2(33, 30)
+scale = Vector2(2, 2)
+
+[connection signal="fish_picked" from="TextureRect" to="." method="_on_texture_rect_fish_picked"]

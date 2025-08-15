@@ -8,8 +8,8 @@ class_name FishNode
 @export var ammo: int = 0    
 @export var weight: float = 0.0 
 @export var texture: Texture2D
-@export var col: int
-@export var row: int
+@export var col: int = 0
+@export var row: int = 0
 @onready var sprite: Sprite2D = $Sprite2D
 static var FRAME_SIZE: Vector2 = Vector2(32, 32)
 
@@ -20,10 +20,12 @@ func get_metadata() -> Dictionary:
 		"difficulty": difficulty,
 		"damage": damage,
 		"ammo": ammo,
-		"weight": weight
+		"weight": weight,
+		"col": col,
+		"row": row
 	}
 
-func _ready() -> void:
+func setup_fish() -> void:
 	set_texture_by_cell(col, row)
 
 func _apply_texture(tex: Texture2D) -> void:

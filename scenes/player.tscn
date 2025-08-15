@@ -337,4 +337,9 @@ offset_top = -14.0
 offset_right = -54.0
 offset_bottom = 13.0
 
+[node name="FishSprite" type="Sprite2D" parent="."]
+position = Vector2(4.465, 4.615)
+scale = Vector2(0.3, 0.3)
+
+[connection signal="fish_caught" from="." to="." method="_on_fish_caught"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
