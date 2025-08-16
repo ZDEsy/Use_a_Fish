@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0dnrqkpq838v"]
+
+[ext_resource type="Texture2D" uid="uid://daq8fw646j0i1" path="res://assets/player/fishing_rod.png" id="1_rd6rx"]
+[ext_resource type="Texture2D" uid="uid://buf0mv1k3ytv" path="res://assets/player/hook.png" id="2_exgr1"]
+
+[node name="FishSceneUI" type="Node2D"]
+
+[node name="ActiveSprite" type="Sprite2D" parent="."]
+position = Vector2(42, -13)
+texture = ExtResource("1_rd6rx")
+
+[node name="PassiveSprite" type="Sprite2D" parent="."]
+position = Vector2(41, 14)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_exgr1")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = -92.0
+offset_top = -14.0
+offset_right = -44.0
+offset_bottom = 9.0
+scale = Vector2(0.5, 0.5)
+text = "Score:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreNumberLabel" type="Label" parent="."]
+offset_left = -90.0
+offset_top = 2.0
+offset_right = -50.0
+offset_bottom = 25.0
+scale = Vector2(0.5, 0.5)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1

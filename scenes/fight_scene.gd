@@ -11,8 +11,10 @@ extends Node2D
 
 func _ready():
 	player.equipped_active_fish = PlayerState.equipped_active_fish
+	player.player_mode = player.PlayerMode.COMBAT
 	randomize()
 	spawn_timer.start()
+	player.fish_sprite.texture = player.equipped_active_fish.texture
 
 func spawn_random_enemy():
 	# Pick a random enemy scene

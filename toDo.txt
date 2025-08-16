@@ -1,4 +1,6 @@
-fix animations enemy
-fix fish not showing fight scene
-fix UI distrubted fight scene
-change ui catching
+# on hit change color
+ui update fight scene
+ammo coming from weapon
+# infinite world
+more enemies
+more weapons

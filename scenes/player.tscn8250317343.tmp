@@ -339,11 +339,8 @@ scale = Vector2(0.3, 0.3)
 
 [node name="BarBar" type="TextureProgressBar" parent="."]
 visible = false
-offset_left = -57.0
-offset_top = -33.0
-offset_right = -17.0
-offset_bottom = 7.0
-scale = Vector2(2, 2)
+offset_right = 40.0
+offset_bottom = 40.0
 fill_mode = 3
 texture_under = ExtResource("6_ur7pv")
 texture_progress = ExtResource("7_y4r1p")
@@ -354,19 +351,9 @@ offset_left = -16.0
 offset_top = 18.0
 offset_right = 24.0
 offset_bottom = 58.0
-value = 50.0
 fill_mode = 4
 texture_under = ExtResource("6_fjrip")
 texture_progress = ExtResource("7_smehm")
 
-[node name="BarFillingTimer" type="Timer" parent="."]
-wait_time = 0.01
-
-[node name="BarBarFillingTimer" type="Timer" parent="."]
-wait_time = 0.1
-
 [connection signal="fish_caught" from="." to="." method="_on_fish_caught"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
-[connection signal="timeout" from="BarFillingTimer" to="." method="_on_timer_tick"]
-[connection signal="timeout" from="BarBarFillingTimer" to="." method="_on_bar_bar_filling_timer_timeout"]

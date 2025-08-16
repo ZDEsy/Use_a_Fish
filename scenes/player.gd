@@ -9,11 +9,15 @@ extends CharacterBody2D
 
 @onready var cast_timer: Timer = $Timer
 @onready var timer_2: Timer = $Timer2
-@onready var progress_bar: ProgressBar = $ProgressBar
-@onready var progress_bar_2: ProgressBar = $ProgressBar2
+@onready var bar_bar: TextureProgressBar = $BarBar
+@onready var circle_bar: TextureProgressBar = $CircleBar
 @onready var ui: Node2D = $UI
 @onready var fish_sprite: Sprite2D = $FishSprite
 @onready var hook: Sprite2D = $Rod/Hook
+@onready var bar_filling_timer: Timer = $BarFillingTimer
+@onready var bar_bar_filling_timer: Timer = $BarBarFillingTimer
+
+
 @export var casting_delay : float = 1.0
 @export var water_block_radius: float = 6.0
 
@@ -30,7 +34,8 @@ var rope_segments : int = 0
 var min_bite_time = 1.0
 var max_bite_time = 10.0
 
-var current_speed = 10.0
+var current_speed = 5.0
+var catching_speed = 5
 var speed_change_timer = 0.0
 var speed_change_interval = 0.1
 
@@ -56,6 +61,7 @@ var fishing_state = FishingState.IDLE
 
 func _ready():
 	cast_timer.wait_time = casting_delay
+	fishing_state = FishingState.IDLE
 
 func _physics_process(delta):
 	get_input()
@@ -114,6 +120,8 @@ func _handle_combat_input(event: InputEvent) -> void:
 			equipped_active_fish.attack(global_position, direction, self)
 
 func _toggle_player_mode() -> void:
+	if(get_tree().current_scene.name == "FightScene"):
+		return
 	if player_mode == PlayerMode.FISHING:
 		player_mode = PlayerMode.COMBAT
 		print("Switched to Combat Mode")
@@ -123,38 +131,51 @@ func _toggle_player_mode() -> void:
 	changed_mode.emit()
 
 func _start_catching_phase() -> void:
-	if(!progress_bar.visible):
-		_handle_idle_click()
+	if(!circle_bar.visible):
+		_retract_rope()
 		return
 	print("CAUGHT!!!")
-	progress_bar_2.value = 20
-	progress_bar_2.visible = true
-	progress_bar.visible = false
+	bar_bar.visible = true
+	bar_bar.value = 20
 	is_casting = false
 	casted = false
 	fish_to_catch = Fish_Manager.get_all_fish().pick_random().instantiate()
 	fish_to_catch.setup_fish()
 	fishing_state = FishingState.CATCHING_FISH
+	bar_filling_timer.stop()
+	circle_bar.visible = false
+	timer_2.stop()
+	bar_bar_filling_timer.start()
 
 func _update_catching_phase() -> void:
-	progress_bar_2.value += (15 - fish_to_catch.difficulty * 2)
-	print(fish_to_catch.fish_name)
-	if progress_bar_2.value >= 100:
+	if bar_bar.visible:
+		var increment = 15 - fish_to_catch.difficulty * 2
+		bar_bar.value += increment
+		bar_bar.value = clamp(bar_bar.value, 0, bar_bar.max_value)
+		
+	if bar_bar.value >= bar_bar.max_value:
+		on_caught()
+		bar_bar.value = bar_bar.max_value
+		bar_bar.visible = false
 		_retract_rope()
-		progress_bar_2.value = 0
 		fish_caught.emit(fish_to_catch)
 		fishing_state = FishingState.IDLE
+		bar_bar_filling_timer.stop()
 
 func _handle_idle_click() -> void:
 	if is_casting or casted:
-		if progress_bar.visible:
-			print("Progress bar stopped at:", progress_bar.value)
-			progress_bar.visible = false
+		if circle_bar.visible:
+			print("Progress bar stopped at:", circle_bar.value)
+			circle_bar.visible = false
+			bar_filling_timer.stop()
+			bar_bar_filling_timer.start()
+			bar_bar.visible = true
 		else:
 			is_casting = false
 			casted = false
-			progress_bar.visible = false
+			circle_bar.visible = false
 			_retract_rope()
+			print("Didnt stop")
 	else:
 		cast_on_click()
 		fishing_state = FishingState.WAITING_FOR_FISH
@@ -163,7 +184,7 @@ func cast_on_click():
 	if not cast_timer.is_stopped():
 		print("Cast on cooldown: ", cast_timer.time_left, "s left")
 		return
-
+	
 	var mouse_global : Vector2 = get_global_mouse_position()
 	var mouse_local : Vector2 = get_local_mouse_position()
 	var world_node = $"../World"
@@ -189,39 +210,26 @@ func cast_on_click():
 		line.add_point(p)
 	
 func _retract_rope() -> void:
+	fishing_state = FishingState.IDLE
 	line.clear_points()
 	rod.visible = false
 	casted = false
 	is_casting = false
 	rope_points.clear()
 	rope_segments = 0
-	cast_timer.start()
 	timer_2.stop()
+	bar_bar_filling_timer.stop()
+	bar_filling_timer.stop()
 
 func _init_rope_from_to(start_pos : Vector2, target_pos : Vector2) -> void:
 	var dist = start_pos.distance_to(target_pos)
 	rope_segments = max(3, int(ceil(dist / segment_length)))
 	rope_points.resize(rope_segments + 1)
-	for i in rope_points.size():
+	for i in range(rope_points.size()):
 		rope_points[i] = start_pos
 
 
 func _process(delta: float) -> void:
-	if(progress_bar_2.value > 0):
-		progress_bar_2.value -= current_speed * delta
-	elif(progress_bar_2.visible) :
-		progress_bar_2.visible = false
-		_retract_rope()
-	
-	if progress_bar.visible:
-		progress_bar.value += current_speed * delta
-		speed_change_timer -= delta
-		if speed_change_timer <= 0:
-			current_speed = randf_range(-10, 70)  # min/max speed
-			speed_change_timer = speed_change_interval
-		if progress_bar.value >= progress_bar.max_value:
-			progress_bar.visible = false
-			print("Bar finished!")
 
 	if rope_points.size() == 0:
 		return
@@ -281,12 +289,37 @@ func _process(delta: float) -> void:
 			hook.rotation = (rope_points[last_index] - prev_point).angle()
 
 func _on_timer_2_timeout() -> void:
-	progress_bar.visible = true
-	progress_bar.value = 0
+	circle_bar.visible = true
+	circle_bar.value = 0
+	bar_filling_timer.start()
+
+func _on_timer_tick():
+	circle_bar.value += current_speed
+	circle_bar.value = clamp(circle_bar.value, 0, circle_bar.max_value)
+	speed_change_timer -= bar_filling_timer.wait_time
+	if speed_change_timer <= 0:
+		current_speed = randf_range(0.1, 4)  # min/max speed
+		speed_change_timer = speed_change_interval
+	if circle_bar.value >= circle_bar.max_value:
+		circle_bar.visible = false
+		print("Bar finished!")
+		bar_filling_timer.stop()
+		timer_2.start()
 
 
 func on_caught():
-	progress_bar.visible = false
+	circle_bar.visible = false
 	casted = false
 	is_casting = false
 	timer_2.stop()
+
+
+func _on_bar_bar_filling_timer_timeout() -> void:
+	if(bar_bar.value > 0):
+		bar_bar.value -= catching_speed
+		bar_bar.value = clamp(bar_bar.value, 0, bar_bar.max_value)
+	elif(bar_bar.visible) :
+		bar_bar.visible = false
+		_retract_rope()
+		fishing_state = FishingState.IDLE
+		bar_bar_filling_timer.stop()

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bxxow6kwoksvi" path="res://scenes/fight_scene.gd" id="1_keksv"]
 [ext_resource type="Texture2D" uid="uid://bgcvoslx61d0w" path="res://assets/tilemap/Adventure Awaits Asset Pack 1.0.png" id="1_p8b18"]
 [ext_resource type="PackedScene" uid="uid://wfm3hps4l4j3" path="res://scenes/player.tscn" id="3_nff5x"]
-[ext_resource type="PackedScene" uid="uid://bnw58ycx2l4bu" path="res://scenes/ui.tscn" id="4_gksjr"]
+[ext_resource type="PackedScene" uid="uid://c0dnrqkpq838v" path="res://scenes/fish_scene_ui.tscn" id="4_gksjr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_keksv"]
 texture = ExtResource("1_p8b18")
@@ -262,8 +262,6 @@ layer_0/tile_data = PackedInt32Array(589830, 327680, 16, 589829, 327680, 16, 589
 
 [node name="Player" parent="." instance=ExtResource("3_nff5x")]
 
-[node name="UI" parent="Player" instance=ExtResource("4_gksjr")]
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -273,5 +271,9 @@ shape = SubResource("RectangleShape2D_nff5x")
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="FishSceneUI" parent="." instance=ExtResource("4_gksjr")]
+position = Vector2(49, 1)
+scale = Vector2(2.5, 2.5)
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
