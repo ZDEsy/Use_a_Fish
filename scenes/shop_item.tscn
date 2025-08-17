@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://by73sunycy2qe"]
+
+[ext_resource type="Texture2D" uid="uid://nil8pdkbck7j" path="res://assets/tilemap/small_border.png" id="1_btjjm"]
+[ext_resource type="Script" uid="uid://xrpb6qartvec" path="res://shop_item.gd" id="1_lrx6i"]
+
+[node name="ShopItem" type="TextureRect"]
+offset_right = 130.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_btjjm")
+script = ExtResource("1_lrx6i")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 14.0
+offset_right = 54.0
+offset_bottom = 50.0
+scale = Vector2(0.5, 0.5)
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 14.0
+offset_right = 136.0
+offset_bottom = 50.0
+scale = Vector2(0.5, 0.5)
+
+[node name="PriceLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 18.0
+offset_right = 190.0
+offset_bottom = 41.0
+scale = Vector2(0.5, 0.5)
+
+[node name="BuyButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 6.0
+offset_right = 240.0
+offset_bottom = 74.0
+scale = Vector2(0.5, 0.5)

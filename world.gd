@@ -6,6 +6,9 @@ var noise : Noise
 var environment_noise: Noise
 @onready var tile_map: TileMap = $TileMap
 @onready var player: CharacterBody2D = $"../Player"
+@onready var house_scene: Node2D = $"../House"
+
+var house_radius: int = 5
 
 var water_layer = 0
 var ground_layer = 1
@@ -17,7 +20,6 @@ var dirt_atlas = Vector2i(8,11)
 
 var tree_atlas_arr = [Vector2i(6,0), Vector2i(10,0)]
 var house = Vector2i(4,4)
-@export var house_scene: PackedScene = preload("res://scenes/House.tscn")
 var placed_house = false
 var dirt_tiles_arr = []
 var grass_tiles_arr = []
@@ -35,6 +37,7 @@ func _ready():
 	noise = noise_height_text.noise
 	environment_noise = noise_environment_text.noise
 	generate_world()
+	place_house_near_player()
 
 func _process(delta):
 	if player:
@@ -48,13 +51,6 @@ func generate_world():
 			var cell = Vector2i(x, y)
 			
 			if noise_val >= 0.0:
-				if !placed_house and noise_val > 0.5:
-					var house = house_scene.instantiate()
-					house.position = tile_map.map_to_local(cell)
-					add_child(house)
-
-					placed_house = true
-					continue 
 				if noise_val > 0.2 and noise_val < 0.6 and environment_noise_val > 0.5:
 					tile_map.set_cell(environment_layer, Vector2i(x,y), 0, tree_atlas_arr.pick_random())
 				
@@ -90,3 +86,24 @@ func fill_infinite_water_around(player_pos: Vector2):
 				continue
 			tile_types[cell] = "water"
 			tile_map.set_cell(water_layer, cell, 0, water_atlas)
+
+func place_house_near_player():
+	if placed_house:
+		return
+
+	var player_cell = tile_map.local_to_map(player.global_position)
+
+	# Search in a square radius
+	for x in range(player_cell.x - house_radius, player_cell.x + house_radius):
+		for y in range(player_cell.y - house_radius, player_cell.y + house_radius):
+			var cell = Vector2i(x, y)
+
+			# Only on land tiles
+			if tile_types.get(cell, "water") == "land":
+				house_scene.visible = true
+				house_scene.position = tile_map.map_to_local(cell)
+				placed_house = true
+				print("House placed near player at:", cell)
+				print("House is at position: ", house_scene.global_position)
+				print("Player is at position: ", player.global_position)
+				return

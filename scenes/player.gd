@@ -16,6 +16,7 @@ extends CharacterBody2D
 @onready var hook: Sprite2D = $Rod/Hook
 @onready var bar_filling_timer: Timer = $BarFillingTimer
 @onready var bar_bar_filling_timer: Timer = $BarBarFillingTimer
+@onready var ekey: Node2D = $Ekey
 
 
 @export var casting_delay : float = 1.0
@@ -323,3 +324,12 @@ func _on_bar_bar_filling_timer_timeout() -> void:
 		_retract_rope()
 		fishing_state = FishingState.IDLE
 		bar_bar_filling_timer.stop()
+
+
+func _on_house_show_e() -> void:
+	ekey.visible = true
+	print("HOUSE ENTERED")
+
+
+func _on_house_hide_e() -> void:
+	ekey.visible = false

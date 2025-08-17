@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnw58ycx2l4bu"]
+[gd_scene load_steps=9 format=3 uid="uid://bnw58ycx2l4bu"]
 
 [ext_resource type="Texture2D" uid="uid://d0iul6ho4xib2" path="res://assets/uiCircle.png" id="1_nt7q6"]
 [ext_resource type="Script" uid="uid://1tjseryb6joe" path="res://scenes/ui.gd" id="1_x4jx1"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://c0trh08l6iq8w" path="res://scenes/texture_rect.gd" id="5_wm3ai"]
 [ext_resource type="Texture2D" uid="uid://bh4apsnpu0pmv" path="res://assets/obdelni.png" id="6_8dubc"]
 [ext_resource type="Script" uid="uid://cfbqgkcn13g0i" path="res://scenes/texture_rect_2.gd" id="6_p7vwb"]
+[ext_resource type="PackedScene" uid="uid://c1gmlhvpxccg1" path="res://scenes/shop_ui.tscn" id="8_ktti3"]
 
 [node name="UI" type="Node2D"]
 script = ExtResource("1_x4jx1")
@@ -55,5 +56,11 @@ script = ExtResource("6_p7vwb")
 [node name="Sprite2D" type="Sprite2D" parent="TextureRect2"]
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("6_8dubc")
+
+[node name="ShopUI" parent="." instance=ExtResource("8_ktti3")]
+offset_left = -57.0
+offset_top = -62.0
+offset_right = -57.0
+offset_bottom = -37.0
 
 [connection signal="fish_picked" from="TextureRect" to="." method="_on_texture_rect_fish_picked"]

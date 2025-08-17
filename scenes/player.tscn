@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://wfm3hps4l4j3"]
+[gd_scene load_steps=49 format=3 uid="uid://wfm3hps4l4j3"]
 
 [ext_resource type="Texture2D" uid="uid://bnny7d1fq4ao8" path="res://assets/player/idle.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dmvrsipoe85pt" path="res://scenes/player.gd" id="1_g2els"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ynanos6bf577" path="res://assets/emptyBarBar.png" id="6_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://cv4cey8xjcjiq" path="res://assets/pieChart.png" id="7_smehm"]
 [ext_resource type="Texture2D" uid="uid://ddw77yfioo2nn" path="res://assets/BarBar.png" id="7_y4r1p"]
+[ext_resource type="PackedScene" uid="uid://bn6upvjgq6vex" path="res://scenes/ekey.tscn" id="10_y4r1p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("1_3vyb7")
@@ -367,6 +368,10 @@ wait_time = 0.01
 
 [node name="BarBarFillingTimer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="Ekey" parent="." instance=ExtResource("10_y4r1p")]
+visible = false
+position = Vector2(-12, -12)
 
 [connection signal="fish_caught" from="." to="." method="_on_fish_caught"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

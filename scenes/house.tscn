@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7ticvmp21hjv"]
+[gd_scene load_steps=6 format=3 uid="uid://c7ticvmp21hjv"]
 
 [ext_resource type="Script" uid="uid://d18i7ln4emcck" path="res://house.gd" id="1_d7po0"]
 [ext_resource type="Texture2D" uid="uid://bgcvoslx61d0w" path="res://assets/tilemap/tilemap.png" id="2_qtlar"]
@@ -8,16 +8,29 @@ atlas = ExtResource("2_qtlar")
 region = Rect2(67, 73, 55, 82)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qtlar"]
-size = Vector2(31, 28)
+size = Vector2(26, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rk7hg"]
+size = Vector2(42, 46)
 
 [node name="House" type="StaticBody2D"]
+z_index = 1
+y_sort_enabled = true
 script = ExtResource("1_d7po0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_rk7hg")
 
 [node name="Area2D" type="Area2D" parent="."]
+z_index = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-0.5, 30)
+position = Vector2(0, 29)
 shape = SubResource("RectangleShape2D_qtlar")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 8)
+shape = SubResource("RectangleShape2D_rk7hg")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_body_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_body_exited"]

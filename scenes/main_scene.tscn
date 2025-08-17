@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://chxe3xm3qmyiy"]
+[gd_scene load_steps=6 format=3 uid="uid://chxe3xm3qmyiy"]
 
 [ext_resource type="Script" uid="uid://bblmipdnyxwnr" path="res://scenes/main_scene.gd" id="1_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://r8c3xcthwkgn" path="res://scenes/world.tscn" id="1_pw63i"]
 [ext_resource type="PackedScene" uid="uid://wfm3hps4l4j3" path="res://scenes/player.tscn" id="1_w2twt"]
 [ext_resource type="PackedScene" uid="uid://bnw58ycx2l4bu" path="res://scenes/ui.tscn" id="3_7ykc4"]
+[ext_resource type="PackedScene" uid="uid://c7ticvmp21hjv" path="res://scenes/house.tscn" id="5_gubc5"]
 
 [node name="MainScene" type="Node2D"]
 y_sort_enabled = true
@@ -19,6 +20,12 @@ position = Vector2(-1, 2)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)
 
+[node name="House" parent="." instance=ExtResource("5_gubc5")]
+visible = false
+position = Vector2(-236, 3)
+
 [connection signal="changed_mode" from="Player" to="Player/UI" method="_on_player_changed_mode"]
 [connection signal="fish_caught" from="Player" to="." method="_on_player_fish_caught"]
 [connection signal="fish_caught" from="Player" to="Player/UI" method="_on_player_fish_caught"]
+[connection signal="HideE" from="House" to="Player" method="_on_house_hide_e"]
+[connection signal="ShowE" from="House" to="Player" method="_on_house_show_e"]

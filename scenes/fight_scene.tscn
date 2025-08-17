@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://hekvl5k8gnfx"]
 
-[ext_resource type="Script" path="res://scenes/fight_scene.gd" id="1_keksv"]
+[ext_resource type="Script" uid="uid://bxxow6kwoksvi" path="res://scenes/fight_scene.gd" id="1_keksv"]
 [ext_resource type="Texture2D" uid="uid://bgcvoslx61d0w" path="res://assets/tilemap/tilemap.png" id="1_p8b18"]
 [ext_resource type="PackedScene" uid="uid://wfm3hps4l4j3" path="res://scenes/player.tscn" id="3_nff5x"]
 [ext_resource type="PackedScene" uid="uid://c0dnrqkpq838v" path="res://scenes/fish_scene_ui.tscn" id="4_gksjr"]

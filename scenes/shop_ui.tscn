@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1gmlhvpxccg1"]
+
+[ext_resource type="Texture2D" uid="uid://bjaa25anuibvf" path="res://assets/tilemap/07 Border 01.png" id="1_18xnp"]
+[ext_resource type="Script" uid="uid://csgkr36pt5gj0" path="res://scenes/shop_ui.gd" id="1_fs6yy"]
+[ext_resource type="PackedScene" uid="uid://by73sunycy2qe" path="res://scenes/shop_item.tscn" id="2_oixfk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18xnp"]
+atlas = ExtResource("1_18xnp")
+region = Rect2(64, 64, 64, 64)
+
+[node name="ShopUI" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -693.0
+offset_top = -448.0
+offset_right = -693.0
+offset_bottom = -448.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fs6yy")
+shop_item_scene = ExtResource("2_oixfk")
+
+[node name="ScrollBorder" type="Sprite2D" parent="."]
+position = Vector2(59, 62.5)
+scale = Vector2(2.67188, 2.63672)
+texture = SubResource("AtlasTexture_18xnp")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(233, 240)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.168
+anchor_top = 0.147
+anchor_right = 0.168
+anchor_bottom = 0.147
+offset_top = 0.165
+offset_right = 233.0
+offset_bottom = 240.165
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(233, 246)
+layout_mode = 2
+size_flags_vertical = 3
