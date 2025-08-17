@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://br04i3ndvikd3"]
+[gd_scene load_steps=37 format=3 uid="uid://br04i3ndvikd3"]
 
 [ext_resource type="PackedScene" uid="uid://bq12cs62ujjxy" path="res://scenes/enemy.tscn" id="1_i6os3"]
 [ext_resource type="Texture2D" uid="uid://c2g1jb58nn0mu" path="res://assets/enemies/bat/noBKG_BatAttack_strip.png" id="2_18mee"]
@@ -223,7 +223,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_18mee"]
 size = Vector2(33, 11)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jofwc"]
+size = Vector2(33, 11)
+
 [node name="Bat" instance=ExtResource("1_i6os3")]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("2_jofwc")
 health = 5
 
@@ -234,3 +238,7 @@ animation = &"run"
 [node name="CollisionShape2D" parent="HitArea" index="0"]
 position = Vector2(-0.5, -1.5)
 shape = SubResource("RectangleShape2D_18mee")
+
+[node name="CollisionShape2D" parent="." index="4"]
+position = Vector2(-0.5, -1.5)
+shape = SubResource("RectangleShape2D_jofwc")

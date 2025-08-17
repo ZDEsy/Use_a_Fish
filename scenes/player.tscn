@@ -300,9 +300,11 @@ size = Vector2(11, 12)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
+y_sort_enabled = true
 script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_f1ej7")
 animation = &"idle_front"
 autoplay = "idle_front"
@@ -354,6 +356,7 @@ offset_left = -16.0
 offset_top = 18.0
 offset_right = 24.0
 offset_bottom = 58.0
+size_flags_vertical = 8
 value = 50.0
 fill_mode = 4
 texture_under = ExtResource("6_fjrip")

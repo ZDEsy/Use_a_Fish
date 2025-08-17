@@ -12,7 +12,7 @@ class_name Enemy
 @export var attack_range: float = 24.0
 @export var attack_cooldown: float = 1.0
 
-enum State { IDLE, RUN, ATTACK, HURT, DEAD }
+enum State { IDLE, RUN, ATTACK, HURT, DEAD, ROLL }
 var state: State = State.RUN
 
 var player: Node = null
@@ -63,7 +63,11 @@ func _physics_process(delta: float) -> void:
 	if state == State.DEAD:
 		return
 	if not player:
-		print(player)
+		return
+
+	if state == State.ATTACK:
+		velocity = Vector2.ZERO
+		move_and_slide()
 		return
 
 	var to_player = player.global_position - global_position
@@ -80,21 +84,24 @@ func _physics_process(delta: float) -> void:
 			if state != State.ATTACK:
 				state = State.IDLE
 	else:
-		state = State.RUN
-		var dir = to_player.normalized()
-		velocity = dir * speed
-		move_and_slide()
-		_face_direction(dir)
-	
+		if state != State.ATTACK:
+			state = State.RUN
+			var dir = to_player.normalized()
+			velocity = dir * speed
+			move_and_slide()
+			_face_direction(dir)
+
 	_update_animation()
+
 
 func _play_attack() -> void:
 	state = State.ATTACK
 	anim_controller.play("attack")
 
 func _play_hurt() -> void:
-	state = State.HURT
-	anim_controller.play("hurt")
+	pass
+	#state = State.HURT
+	#anim_controller.play("hurt")
 
 
 func _face_direction(dir: Vector2) -> void:
@@ -122,6 +129,9 @@ func _on_hit_area_area_entered(body) -> void:
 	if(state == State.DEAD):
 		return
 	
+	if body.has_method("owner") and body.owner == self:
+		return
+	
 	var dmg: int = 0
 	if body.has_method("get_damage"):
 		dmg = int(body.get_damage())
@@ -135,9 +145,20 @@ func _on_hit_area_area_entered(body) -> void:
 			body.on_hit(self)
 		elif body.is_in_group("bullets"):
 			body.queue_free()
-	print(health, "--- health")
 
 
-func _on_animated_sprite_2d_animation_finished(anim_name: String) -> void:
+func _on_animated_sprite_2d_animation_finished() -> void:
+	var anim_name = animated_sprite_2d.animation
+
 	if anim_name == "die":
 		queue_free()
+	elif anim_name == "attack" and state == State.ATTACK:
+		if player:
+			var to_player = player.global_position - global_position
+			var distance = to_player.length()
+			if distance <= attack_range:
+				state = State.IDLE
+			else:
+				state = State.RUN
+	elif anim_name == "roll" and state == State.ROLL:
+		state = State.IDLE

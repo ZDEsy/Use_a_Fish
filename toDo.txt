@@ -1,6 +1,9 @@
-# on hit change color
 ui update fight scene
-ammo coming from weapon
-# infinite world
-more enemies
 more weapons
+
+
+
+
+2 mody:
+- normalni mas urcity počet kol nez musíš do areny bojovat několik vln nepratel a pak znovu
+- nekonecny kde rybaris jak dlouho chces a pak bojuješ na život a na smrt jak dlouho chces

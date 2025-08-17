@@ -117,7 +117,7 @@ func _handle_combat_input(event: InputEvent) -> void:
 		var mouse_pos = get_global_mouse_position()
 		var direction = (mouse_pos - global_position).normalized()
 		if equipped_active_fish != null:
-			equipped_active_fish.attack(global_position, direction, self)
+			equipped_active_fish.attack(fish_sprite.global_position, direction, self)
 
 func _toggle_player_mode() -> void:
 	if(get_tree().current_scene.name == "FightScene"):

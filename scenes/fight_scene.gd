@@ -6,7 +6,7 @@ extends Node2D
 
 
 @onready var enemy_scenes = [
-	preload("res://scenes/enemies/bat.tscn")
+	preload("res://scenes/enemies/golem.tscn")
 ]
 
 func _ready():
@@ -14,7 +14,8 @@ func _ready():
 	player.player_mode = player.PlayerMode.COMBAT
 	randomize()
 	spawn_timer.start()
-	player.fish_sprite.texture = player.equipped_active_fish.texture
+	if(player.equipped_active_fish):
+		player.fish_sprite.texture = player.equipped_active_fish.texture
 
 func spawn_random_enemy():
 	# Pick a random enemy scene

@@ -7,7 +7,7 @@
 radius = 18.0
 
 [node name="Bullet" type="Area2D" groups=["bullets"]]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.2, 0.2)
 script = ExtResource("1_p1sfj")
 damage = 1
 

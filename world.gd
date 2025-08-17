@@ -1,17 +1,23 @@
 extends Node2D
 
 @export var noise_height_text : NoiseTexture2D
+@export var noise_environment_text : NoiseTexture2D
 var noise : Noise
+var environment_noise: Noise
 @onready var tile_map: TileMap = $TileMap
 @onready var player: CharacterBody2D = $"../Player"
 
 var water_layer = 0
 var ground_layer = 1
+var environment_layer = 3
 
 var water_atlas = Vector2i(16,15)
 var grass_atlas = Vector2i(12,11)
 var dirt_atlas = Vector2i(8,11)
 
+var tree_atlas_arr = [Vector2i(6,0), Vector2i(10,0)]
+var house = Vector2i(4,4)
+var placed_house = false
 var dirt_tiles_arr = []
 var grass_tiles_arr = []
 
@@ -26,6 +32,7 @@ var tile_types : Dictionary = {}
 
 func _ready():
 	noise = noise_height_text.noise
+	environment_noise = noise_environment_text.noise
 	generate_world()
 
 func _process(delta):
@@ -36,9 +43,18 @@ func generate_world():
 	for x in range(-width/2, width/2):
 		for y in range(-height/2, height/2):
 			var noise_val = noise.get_noise_2d(x, y)
+			var environment_noise_val = environment_noise.get_noise_2d(x, y)
 			var cell = Vector2i(x, y)
 			
 			if noise_val >= 0.0:
+				if !placed_house and noise_val > 0.5:
+					tile_map.set_cell(environment_layer, Vector2i(x,y), 0, house)
+					placed_house = true
+					print("House placed")
+					continue 
+				if noise_val > 0.2 and noise_val < 0.6 and environment_noise_val > 0.5:
+					tile_map.set_cell(environment_layer, Vector2i(x,y), 0, tree_atlas_arr.pick_random())
+				
 				if noise_val > 0.2:
 					grass_tiles_arr.append(cell)
 				else:

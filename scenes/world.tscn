@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://r8c3xcthwkgn"]
+[gd_scene load_steps=10 format=3 uid="uid://r8c3xcthwkgn"]
 
 [ext_resource type="Script" uid="uid://d00if4adxccts" path="res://world.gd" id="1_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://bgcvoslx61d0w" path="res://assets/tilemap/Adventure Awaits Asset Pack 1.0.png" id="2_4wyf3"]
@@ -12,6 +12,13 @@ frequency = 0.0457
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4wyf3"]
 color_ramp = SubResource("Gradient_rwgxs")
 noise = SubResource("FastNoiseLite_rwgxs")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4wyf3"]
+frequency = 0.35
+fractal_octaves = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k0juu"]
+noise = SubResource("FastNoiseLite_4wyf3")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k0juu"]
 texture = ExtResource("2_4wyf3")
@@ -175,10 +182,25 @@ texture = ExtResource("2_4wyf3")
 11:18/0 = 0
 12:18/0 = 0
 15:18/0 = 0
-6:1/size_in_atlas = Vector2i(3, 3)
-6:1/0 = 0
-10:1/size_in_atlas = Vector2i(5, 3)
-10:1/0 = 0
+9:4/0 = 0
+4:4/size_in_atlas = Vector2i(4, 6)
+4:4/0 = 0
+4:4/0/texture_origin = Vector2i(-1, 27)
+4:4/0/z_index = 1
+4:4/0/y_sort_origin = 6
+4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-19.4365, 4.77946, -21.0296, -5.73535, 21.0296, -6.37261, 19.7551, 5.09809)
+6:0/size_in_atlas = Vector2i(3, 4)
+6:0/0 = 0
+6:0/0/texture_origin = Vector2i(0, 13)
+6:0/0/z_index = 1
+6:0/0/y_sort_origin = 6
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -2.51802, -8, 6.1152, 8, 6.1152, 8, -2.87774)
+10:0/size_in_atlas = Vector2i(5, 4)
+10:0/0 = 0
+10:0/0/texture_origin = Vector2i(-1, 13)
+10:0/0/z_index = 1
+10:0/0/y_sort_origin = 6
+10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9.89223, -3.59717, -10.6117, 6.65477, 8, 6.65477, 8, -2.69788)
 
 [sub_resource type="TileSet" id="TileSet_71j4m"]
 physics_layer_0/collision_layer = 1
@@ -194,13 +216,19 @@ terrain_set_2/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 terrain_set_3/mode = 0
 terrain_set_3/terrain_0/name = "dirt_in_water"
 terrain_set_3/terrain_0/color = Color(1, 1, 0, 1)
+terrain_set_4/mode = 0
+terrain_set_4/terrain_0/name = "environment"
+terrain_set_4/terrain_0/color = Color(0.137255, 1, 0, 1)
 sources/0 = SubResource("TileSetAtlasSource_k0juu")
 
 [node name="World" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_rwgxs")
 noise_height_text = SubResource("NoiseTexture2D_4wyf3")
+noise_environment_text = SubResource("NoiseTexture2D_k0juu")
 
 [node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
 tile_set = SubResource("TileSet_71j4m")
 format = 2
 layer_0/name = "water"
@@ -209,3 +237,5 @@ layer_1/name = "ground_1"
 layer_1/z_index = -1
 layer_2/name = "ground_2"
 layer_2/z_index = -1
+layer_3/name = "environment"
+layer_3/y_sort_enabled = true

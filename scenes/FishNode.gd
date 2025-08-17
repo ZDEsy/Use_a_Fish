@@ -10,8 +10,11 @@ class_name FishNode
 @export var texture: Texture2D
 @export var col: int = 0
 @export var row: int = 0
+@export var attack_cooldown: float = 0.5
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var attack_timer: Timer = $AttackTimer
 static var FRAME_SIZE: Vector2 = Vector2(32, 32)
+var _can_attack: bool = true
 
 func get_metadata() -> Dictionary:
 	return {
@@ -40,14 +43,25 @@ func set_texture_by_cell(col: int, row: int) -> void:
 	_apply_texture(atlas)
 
 func attack(position: Vector2, direction: Vector2, owner: Node) -> void:
-	if ammo == 0:
+	if ammo == 0 or not _can_attack:
 		return
+
+	# Spawn bullet
 	var bullet_scene := preload("res://scenes/Bullet.tscn")
 	var bullet = bullet_scene.instantiate()
 	bullet.global_position = position
 	bullet.direction = direction
 	bullet.damage = damage
+
 	if owner and owner.get_parent():
 		owner.get_parent().add_child(bullet)
+
 	if ammo > 0:
 		ammo -= 1
+
+	_can_attack = false
+	if owner.get_tree():
+		await owner.get_tree().create_timer(attack_cooldown).timeout
+		_can_attack = true
+	else:
+		_can_attack = true

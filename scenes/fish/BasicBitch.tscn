@@ -7,8 +7,6 @@ script = ExtResource("1_to7cc")
 fish_name = "BasicBitch"
 ammo = 50
 weight = 1.115
-col = 1
-row = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(100.025, -0.0416527)

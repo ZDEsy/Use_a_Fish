@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsn1ekt1vgqj2"]
+
+[ext_resource type="Texture2D" uid="uid://dd2u8a7jiykkj" path="res://assets/enemies/witch/throwable.png" id="1_2nnd5"]
+[ext_resource type="Script" uid="uid://8ut6q8v8uvr4" path="res://scenes/throwable.gd" id="1_ef5ia"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ef5ia"]
+size = Vector2(4, 6)
+
+[node name="Throwable" type="Area2D"]
+script = ExtResource("1_ef5ia")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2nnd5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ef5ia")
