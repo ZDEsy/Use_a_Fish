@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://r8c3xcthwkgn"]
 
 [ext_resource type="Script" uid="uid://d00if4adxccts" path="res://world.gd" id="1_rwgxs"]
-[ext_resource type="Texture2D" uid="uid://bgcvoslx61d0w" path="res://assets/tilemap/Adventure Awaits Asset Pack 1.0.png" id="2_4wyf3"]
+[ext_resource type="Texture2D" uid="uid://bgcvoslx61d0w" path="res://assets/tilemap/tilemap.png" id="2_4wyf3"]
 
 [sub_resource type="Gradient" id="Gradient_rwgxs"]
 

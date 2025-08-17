@@ -17,6 +17,7 @@ var dirt_atlas = Vector2i(8,11)
 
 var tree_atlas_arr = [Vector2i(6,0), Vector2i(10,0)]
 var house = Vector2i(4,4)
+@export var house_scene: PackedScene = preload("res://scenes/House.tscn")
 var placed_house = false
 var dirt_tiles_arr = []
 var grass_tiles_arr = []
@@ -48,9 +49,11 @@ func generate_world():
 			
 			if noise_val >= 0.0:
 				if !placed_house and noise_val > 0.5:
-					tile_map.set_cell(environment_layer, Vector2i(x,y), 0, house)
+					var house = house_scene.instantiate()
+					house.position = tile_map.map_to_local(cell)
+					add_child(house)
+
 					placed_house = true
-					print("House placed")
 					continue 
 				if noise_val > 0.2 and noise_val < 0.6 and environment_noise_val > 0.5:
 					tile_map.set_cell(environment_layer, Vector2i(x,y), 0, tree_atlas_arr.pick_random())
