@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw0jh5riurwyp"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_kh07l"]
+[ext_resource type="Script" uid="uid://desnahr2h7gq4" path="res://scenes/YellowPerch.gd" id="2_ypjch"]
+
+[node name="YellowPerch" instance=ExtResource("1_kh07l")]
+script = ExtResource("2_ypjch")

@@ -1,7 +1,5 @@
-stonefish crashing
-lionfish crashing
-witch projectile damaging witch
-player death main scene rotating whole ui
+
+flying fish no zigzag
 
 
 
@@ -11,5 +9,10 @@ FIXED:
 -knight rolling is shit
 -witch throwable doesnt do damage
 -settings sfx
+-player death main scene rotating whole ui
+-witch projectile damaging witch
+-lionfish crashing
+-stonefish crashing
+-
 -
 -

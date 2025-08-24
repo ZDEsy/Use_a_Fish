@@ -17,7 +17,7 @@ func attack(position: Vector2, direction: Vector2, owner: Node) -> void:
 		owner.get_parent().add_child(center_bullet)
 
 	# Wait 0.1s before spawning side bullets
-	await get_tree().create_timer(0.1).timeout
+	await owner.get_tree().create_timer(0.05).timeout
 
 	var offset_dist: float = 10.0
 	var perp := direction.normalized().orthogonal()

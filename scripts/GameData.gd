@@ -33,7 +33,7 @@ var wave_count: int = 0
 # ----------------------
 # Economy
 # ----------------------
-var coins: int = 0
+var coins: int = 1000
 
 # ----------------------
 # Upgrade helpers
@@ -71,10 +71,9 @@ func add_score(amount: int) -> void:
 func upgrade_stat(stat_name: String, price: int, amount: float) -> bool:
 	if not spend_coins(price):
 		return false
-	if stat_name in SAVE_KEYS:
-		set(stat_name, get(stat_name) + amount)
-		save_game()
-		return true
+	set(stat_name, get(stat_name) + amount)
+	save_game()
+	return true
 	return false
 
 

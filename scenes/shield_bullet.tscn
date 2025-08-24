@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://chjfc0hqebexp"]
+
+[ext_resource type="PackedScene" uid="uid://d3xkrnf5st2uo" path="res://scenes/Bullet.tscn" id="1_vcsdw"]
+[ext_resource type="Script" uid="uid://cdmd21pfvrd5j" path="res://shield_bullet.gd" id="2_qbyru"]
+
+[node name="ShieldBullet" instance=ExtResource("1_vcsdw")]
+script = ExtResource("2_qbyru")

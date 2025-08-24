@@ -530,9 +530,9 @@ func die() -> void:
 	set_physics_process(false)
 	
 	var tween := create_tween()
-	tween.tween_property(self, "rotation_degrees", 720, 0.6)
-	tween.tween_property(self, "position:y", position.y + 120, 0.6)
-	tween.tween_property(self, "modulate:a", 0.0, 0.6)
+	tween.tween_property(animated_sprite_2d, "rotation_degrees", 720, 0.6)
+	tween.tween_property(animated_sprite_2d, "position:y", position.y + 120, 0.6)
+	tween.tween_property(animated_sprite_2d, "modulate:a", 0.0, 0.6)
 
 	
 	await tween.finished

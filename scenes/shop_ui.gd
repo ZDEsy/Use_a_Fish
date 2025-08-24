@@ -12,10 +12,10 @@ func _ready():
 			"name": "+ WALK SPEED",
 			"price": 50,
 			"stat": "walk_speed",
-			"amount": 15.0,
+			"amount": 5.0,
 			"icon": hook_icon,
 			# Custom price: increase by 30 each buy
-			"next_price_func": func(price, count): return price + 30,
+			"next_price_func": func(price, count): return price + 20,
 			# Custom amount: decrease by 0.2 each buy
 			"next_amount_func": func(amount, count): return max(amount - 0.5, 0.1)
 		},
@@ -23,18 +23,18 @@ func _ready():
 			"name": "- BITE TIME",
 			"price": 50,
 			"stat": "bite_time",
-			"amount": -2,
+			"amount": -1.5,
 			"icon": hook_icon,
-			"next_price_func": func(price, count): return price + 30,
+			"next_price_func": func(price, count): return price + 20,
 			"next_amount_func": func(amount, count): return min(amount + 0.2, -0.3)
 		},
 		{
 			"name": "+ CATCH SPEED",
 			"price": 50,
 			"stat": "catching_speed",
-			"amount": +3,
+			"amount": +2,
 			"icon": hook_icon,
-			"next_price_func": func(price, count): return price + 30,
+			"next_price_func": func(price, count): return price + 20,
 			"next_amount_func": func(amount, count): return max(amount - 0.1, 0.2)
 		},
 		{
@@ -43,7 +43,7 @@ func _ready():
 			"stat": "health",
 			"amount": 5,
 			"icon": hook_icon,
-			"next_price_func": func(price, count): return price + 30,
+			"next_price_func": func(price, count): return price + 20,
 			"next_amount_func": func(amount, count): return max(amount - 0.5, 1)
 		},
 		{
@@ -52,7 +52,7 @@ func _ready():
 			"stat": "enemy_speed",
 			"amount": -0.1,
 			"icon": hook_icon,
-			"next_price_func": func(price, count): return price + 30,
+			"next_price_func": func(price, count): return price + 20,
 			"next_amount_func": func(amount, count): return min(amount + 0.01, -0.01)
 		},
 		{
@@ -61,7 +61,7 @@ func _ready():
 			"stat": "enemy_damage",
 			"amount": -0.1,
 			"icon": hook_icon,
-			"next_price_func": func(price, count): return price + 30,
+			"next_price_func": func(price, count): return price + 20,
 			"next_amount_func": func(amount, count): return min(amount + 0.01, -0.01)
 		},
 		{
@@ -70,7 +70,7 @@ func _ready():
 			"stat": "enemy_spawn_rate",
 			"amount": -0.1,
 			"icon": hook_icon,
-			"next_price_func": func(price, count): return price + 30,
+			"next_price_func": func(price, count): return price + 20,
 			"next_amount_func": func(amount, count): return min(amount + 0.01, -0.01)
 		},
 		{
@@ -79,7 +79,7 @@ func _ready():
 			"stat": "fish_damage",
 			"amount": +5,
 			"icon": hook_icon,
-			"next_price_func": func(price, count): return price + 30,
+			"next_price_func": func(price, count): return price + 20,
 			"next_amount_func": func(amount, count): return max(amount - 1, 1)
 		},
 	]
@@ -97,12 +97,9 @@ func _ready():
 		items_container.add_child(item)
 
 func _on_item_bought(stat_name: String, price: int, amount: float):
-	if GameData.upgrade_stat(stat_name, price, amount):
-		print("Upgraded", stat_name, "by", amount, "→ New value:", GameData.get(stat_name))
-		_update_coin_label()
-		SoundManager.play_buy()
-	else:
-		print("Not enough coins to upgrade", stat_name)
+	print("Bought", stat_name, "for", price, "amount:", amount)
+	_update_coin_label()
+	SoundManager.play_buy()
 
 func _update_coin_label() -> void:
 	coin_label.text = str(GameData.coins)

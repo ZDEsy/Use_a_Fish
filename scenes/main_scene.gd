@@ -7,14 +7,12 @@ extends Node2D
 @onready var game_ui: Node2D = ui.game_ui
 @onready var highscore_label: Label = main_menu.label
 
-@onready var enemy_scenes = [
-	preload("res://scenes/enemies/bat.tscn"),
-	preload("res://scenes/enemies/wolf.tscn"),
-	preload("res://scenes/enemies/knight.tscn"),
-	preload("res://scenes/enemies/witch.tscn"),
-	preload("res://scenes/enemies/golem.tscn")
+@onready var enemy_tiers = [
+	[ preload("res://scenes/enemies/bat.tscn"), preload("res://scenes/enemies/wolf.tscn") ], # Tier 1
+	[ preload("res://scenes/enemies/knight.tscn"), preload("res://scenes/enemies/witch.tscn") ], # Tier 2
+	[ preload("res://scenes/enemies/golem.tscn") ] # Tier 3
 ]
-
+var enemies_spawned: int = 0
 # Spawn rate control
 var spawn_rate: float = 120.0      
 var spawn_acceleration: float = 0.5  
@@ -76,17 +74,29 @@ func _on_spawn_timer_timeout() -> void:
 	spawn_timer.start()
 
 func spawn_random_enemy():
-	if enemy_scenes.size() == 0:
-		return
+	enemies_spawned += 1
 
-	var enemy_scene = enemy_scenes[randi() % enemy_scenes.size()]
+	# Determine tier based on progression
+	var tier := 0
+	if enemies_spawned > 10: # after 50 spawns, unlock tier 2
+		tier = 1
+	if enemies_spawned > 25: # after 150 spawns, unlock tier 3
+		tier = 2
+
+	# Pick random enemy from unlocked tiers
+	var available_enemies: Array = []
+	for i in range(tier + 1):
+		available_enemies += enemy_tiers[i]
+
+	var enemy_scene = available_enemies[randi() % available_enemies.size()]
 	var enemy = enemy_scene.instantiate()
 
+	# Spawn around player
 	var x = randf_range(player.global_position.x - spawn_distance_x, player.global_position.x + spawn_distance_x)
 	var y = randf_range(player.global_position.y - spawn_distance_y, player.global_position.y + spawn_distance_y)
 	enemy.position = Vector2(x, y)
 	add_child(enemy)
-	
+
 
 func _process(delta: float) -> void:
 	ui.health.label.text = str(GameData.health)
