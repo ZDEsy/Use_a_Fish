@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1m1f4dn6q6e"]
+
+[ext_resource type="PackedScene" uid="uid://b7krvlvasneb8" path="res://scenes/FishNode.tscn" id="1_62r7e"]
+[ext_resource type="Script" uid="uid://dou211e8uclk" path="res://scenes/BettaFish.gd" id="2_sfjxq"]
+
+[node name="BettaFish" instance=ExtResource("1_62r7e")]
+script = ExtResource("2_sfjxq")
+col = 6
+spread_degrees = 0.0

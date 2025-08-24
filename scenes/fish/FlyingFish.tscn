@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2p7dqfq1oant"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_fnhwh"]
+[ext_resource type="Script" uid="uid://bk3vauq4buibs" path="res://scenes/FlyingFish.gd" id="2_ro0np"]
+
+[node name="FlyingFish" instance=ExtResource("1_fnhwh")]
+script = ExtResource("2_ro0np")
+fish_name = "Flying Fish"
+damage = 4
+col = 9
+row = 1

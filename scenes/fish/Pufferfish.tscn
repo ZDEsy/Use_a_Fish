@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnc7jsv4m7v1h"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_70beb"]
+[ext_resource type="Script" uid="uid://cmot4ck7evk86" path="res://scenes/Pufferfish.gd" id="2_fplxu"]
+
+[node name="Pufferfish" instance=ExtResource("1_70beb")]
+script = ExtResource("2_fplxu")
+fish_name = "Pufferfish"
+damage = 6
+col = 1
+row = 1
+has_right_click = true

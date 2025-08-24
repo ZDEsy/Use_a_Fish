@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://h4nlryks1rtr"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_vchbi"]
+[ext_resource type="Script" uid="uid://dbwosc7p1p81k" path="res://scenes/Porcupinefish.gd" id="2_4xmlx"]
+
+[node name="Porcupinefish" instance=ExtResource("1_vchbi")]
+script = ExtResource("2_4xmlx")
+fish_name = "Porcupine Fish"
+rarity = "rare"
+damage = 3
+row = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7krvlvasneb8"]
+[gd_scene load_steps=2 format=3 uid="uid://bnpp8dgwmwmf1"]
 
 [ext_resource type="Script" uid="uid://dvi2m24efidko" path="res://scenes/FishNode.gd" id="1_tjatk"]
 
@@ -6,8 +6,3 @@
 script = ExtResource("1_tjatk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-
-[node name="AttackTimer" type="Timer" parent="."]
-one_shot = true
-
-[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

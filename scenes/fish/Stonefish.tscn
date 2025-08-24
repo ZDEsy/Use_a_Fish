@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct74tcpmth71t"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_gioyf"]
+[ext_resource type="Script" uid="uid://bwnf227k78i5u" path="res://scenes/Stonefish.gd" id="2_4gwhj"]
+
+[node name="Stonefish" instance=ExtResource("1_gioyf")]
+script = ExtResource("2_4gwhj")
+fish_name = "Stonefish"
+rarity = "legendary"
+col = 8
+row = 1

@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://cu7rsi2nyolnk" path="res://scenes/enemy.gd" id="1_7p1mj"]
 [ext_resource type="PackedScene" uid="uid://cfv05vhgve1uo" path="res://scenes/enemy_animation_controller.tscn" id="2_md0e3"]
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
 script = ExtResource("1_7p1mj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

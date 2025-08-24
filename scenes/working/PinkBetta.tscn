@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvbxyco64qr4"]
+
+[ext_resource type="PackedScene" uid="uid://b7krvlvasneb8" path="res://scenes/FishNode.tscn" id="1_cyf7f"]
+[ext_resource type="Script" uid="uid://bhccbrnmeyw26" path="res://scenes/PinkBetta.gd" id="2_tsl3y"]
+
+[node name="PinkBetta" instance=ExtResource("1_cyf7f")]
+script = ExtResource("2_tsl3y")
+col = 10

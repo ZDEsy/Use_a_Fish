@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4yjqjt0coxjb"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_5d48o"]
+[ext_resource type="Script" uid="uid://coourqlysx3n5" path="res://scenes/FloridaFish.gd" id="2_3aj41"]
+
+[node name="FloridaFish" instance=ExtResource("1_5d48o")]
+script = ExtResource("2_3aj41")
+fish_name = "Florida Fish"
+damage = 5
+col = 3
+row = 1

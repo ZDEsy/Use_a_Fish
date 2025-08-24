@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct1jpsklhfufo"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_ximaa"]
+[ext_resource type="Script" uid="uid://doxub3och3g6" path="res://scenes/Yellowtail.gd" id="2_enqgy"]
+
+[node name="Yellowtail" instance=ExtResource("1_ximaa")]
+script = ExtResource("2_enqgy")
+fish_name = "Yellowtail"
+damage = 5
+col = 4

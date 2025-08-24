@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bclmq047icrnc"]
-
-[ext_resource type="Script" uid="uid://be8opaxacak5x" path="res://scenes/third_fish.gd" id="1_7jnho"]
-
-[node name="ThirdFish" type="Node2D"]
-script = ExtResource("1_7jnho")
-col = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="."]

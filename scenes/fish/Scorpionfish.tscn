@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4g26dg25d0gb"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_nmelc"]
+[ext_resource type="Script" uid="uid://06xvp3av31s5" path="res://scenes/Scorpionfish.gd" id="2_j8x5b"]
+
+[node name="Scorpionfish" instance=ExtResource("1_nmelc")]
+script = ExtResource("2_j8x5b")
+col = 7
+row = 1

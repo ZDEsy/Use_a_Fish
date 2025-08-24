@@ -9,3 +9,8 @@ func _ready():
 		"die": "die"
 	}
 	super._ready()
+
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if animated_sprite_2d.animation == "attack" and animated_sprite_2d.frame == 10: # <-- frame where hit connects
+		_attack_hit()

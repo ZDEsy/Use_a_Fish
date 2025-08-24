@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://wfm3hps4l4j3"]
+[gd_scene load_steps=60 format=3 uid="uid://wfm3hps4l4j3"]
 
 [ext_resource type="Texture2D" uid="uid://bnny7d1fq4ao8" path="res://assets/player/idle.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dmvrsipoe85pt" path="res://scenes/player.gd" id="1_g2els"]
@@ -10,6 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://cv4cey8xjcjiq" path="res://assets/pieChart.png" id="7_smehm"]
 [ext_resource type="Texture2D" uid="uid://ddw77yfioo2nn" path="res://assets/BarBar.png" id="7_y4r1p"]
 [ext_resource type="PackedScene" uid="uid://bn6upvjgq6vex" path="res://scenes/ekey.tscn" id="10_y4r1p"]
+[ext_resource type="AudioStream" uid="uid://dum8h7rr2jh3" path="res://sounds/Retro FootStep 03.wav" id="11_d2wvv"]
+[ext_resource type="AudioStream" uid="uid://csy4cmrafviby" path="res://sounds/Retro Swooosh 07.wav" id="12_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://b07djwxs8g57p" path="res://assets/pixil-frame-0 (4).png" id="13_f1ej7"]
+[ext_resource type="Texture2D" uid="uid://dfjtic82htje4" path="res://assets/pixil-frame-0 (5).png" id="14_oprun"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("1_3vyb7")
@@ -299,13 +303,59 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oprun"]
 size = Vector2(11, 12)
 
+[sub_resource type="Curve" id="Curve_3v2ag"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jej6c"]
+curve = SubResource("Curve_3v2ag")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f1ej7"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_jej6c")
+
+[sub_resource type="Curve" id="Curve_jej6c"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_f1ej7"]
+curve = SubResource("Curve_jej6c")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oprun"]
+particle_flag_disable_z = true
+spread = 30.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_f1ej7")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a8ls1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_f1ej7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_oprun")
+}],
+"loop": true,
+"name": &"swimming",
+"speed": 5.0
+}]
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
 y_sort_enabled = true
+collision_layer = 2
 script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_f1ej7")
 animation = &"idle_front"
 autoplay = "idle_front"
@@ -317,6 +367,7 @@ shape = SubResource("RectangleShape2D_oprun")
 
 [node name="Rod" type="Sprite2D" parent="."]
 visible = false
+z_index = 2
 position = Vector2(10, -1)
 texture = ExtResource("4_dqkch")
 
@@ -330,7 +381,6 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_qlg0r")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
 one_shot = true
 
 [node name="Timer2" type="Timer" parent="."]
@@ -342,6 +392,7 @@ scale = Vector2(0.3, 0.3)
 
 [node name="BarBar" type="TextureProgressBar" parent="."]
 visible = false
+z_index = 15
 offset_left = -57.0
 offset_top = -33.0
 offset_right = -17.0
@@ -353,6 +404,7 @@ texture_progress = ExtResource("7_y4r1p")
 
 [node name="CircleBar" type="TextureProgressBar" parent="."]
 visible = false
+z_index = 15
 offset_left = -16.0
 offset_top = 18.0
 offset_right = 24.0
@@ -373,8 +425,57 @@ wait_time = 0.1
 visible = false
 position = Vector2(-12, -12)
 
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+offset_left = -1507.0
+offset_top = -1002.0
+offset_right = 1465.0
+offset_bottom = 1093.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(1, 0, 0, 1)
+
+[node name="Footsteps" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_d2wvv")
+
+[node name="StepTimer" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
+[node name="OtherPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_3v2ag")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0.686523, 0.921647, 1, 1)
+z_index = 5
+emitting = false
+amount = 10
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_f1ej7")
+
+[node name="WalkingParticle" type="GPUParticles2D" parent="."]
+modulate = Color(0.219608, 0.298039, 0.235294, 1)
+z_index = -1
+position = Vector2(0, 6)
+emitting = false
+amount = 5
+lifetime = 0.5
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_oprun")
+
+[node name="WaterSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_a8ls1")
+animation = &"swimming"
+autoplay = "swimming"
+frame_progress = 0.210103
+
 [connection signal="fish_caught" from="." to="." method="_on_fish_caught"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
 [connection signal="timeout" from="BarFillingTimer" to="." method="_on_timer_tick"]
 [connection signal="timeout" from="BarBarFillingTimer" to="." method="_on_bar_bar_filling_timer_timeout"]
+[connection signal="timeout" from="StepTimer" to="." method="_on_step_timer_timeout"]

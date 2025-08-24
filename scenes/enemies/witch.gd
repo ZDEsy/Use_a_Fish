@@ -55,7 +55,7 @@ func _on_throw_timer_timeout() -> void:
 	if not projectile_scene:
 		return
 	var projectile = projectile_scene.instantiate()
-	projectile.owner = self
+	projectile.shooter = self
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_position = global_position
 	projectile.direction = (player.global_position - global_position).normalized()

@@ -11,6 +11,7 @@ class_name Enemy
 @export var damage: int = 10
 @export var attack_range: float = 24.0
 @export var attack_cooldown: float = 1.0
+var _flash_tween: Tween = null
 
 enum State { IDLE, RUN, ATTACK, HURT, DEAD, ROLL }
 var state: State = State.RUN
@@ -28,32 +29,42 @@ func _ready() -> void:
 	_update_animation()
 
 func take_damage(amount: int) -> void:
+	print("Damage taken: ", amount)
 	if state == State.DEAD:
 		return
-	health -= amount
+	health -= amount * GameData.fish_damage
 	_play_hurt()
 	_flash_white()
 	if health <= 0:
 		die()
 
+func _flash_white() -> void:
+	# Cancel previous tween if it exists
+	if _flash_tween and _flash_tween.is_running():
+		_flash_tween.kill()
 
-func _flash_white():
-	var original_modulate = animated_sprite_2d.modulate
-	
-	# Multiply by white color (full brightness)
-	animated_sprite_2d.modulate = Color(5,5,5,5)  # pure white flash
-	
-	# Wait a short time
-	await get_tree().create_timer(0.1).timeout
-	
-	# Restore original color
-	animated_sprite_2d.modulate = original_modulate
+	# Create new tween
+	_flash_tween = get_tree().create_tween()
+
+	# Flash sequence
+	_flash_tween.tween_property(animated_sprite_2d, "modulate", Color(5, 5, 5, 1), 0.0)
+	_flash_tween.tween_interval(0.05)
+	_flash_tween.tween_property(animated_sprite_2d, "modulate", Color(1, 1, 1, 1), 0.1)
+
 
 func die() -> void:
 	state = State.DEAD
+	GameData.add_score(50)
 	anim_controller.play("die")
 	z_index = 0
 	anim_controller.z_index = 0
+
+func _attack_hit() -> void:
+	if player and state == State.ATTACK:
+		var to_player = player.global_position - global_position
+		if to_player.length() <= attack_range:
+			attack(player)
+			SoundManager.play_punch()
 
 func attack(target: Node) -> void:
 	if target and target.has_method("take_damage"):
@@ -65,8 +76,10 @@ func _physics_process(delta: float) -> void:
 	if not player:
 		return
 
+	var separation = _get_separation_force()
+
 	if state == State.ATTACK:
-		velocity = Vector2.ZERO
+		velocity = Vector2.ZERO + separation
 		move_and_slide()
 		return
 
@@ -74,12 +87,11 @@ func _physics_process(delta: float) -> void:
 	var distance = to_player.length()
 
 	if distance <= attack_range:
-		velocity = Vector2.ZERO
+		velocity = separation
 		_attack_timer -= delta
 		if _attack_timer <= 0.0:
 			_attack_timer = attack_cooldown
 			_play_attack()
-			attack(player)
 		else:
 			if state != State.ATTACK:
 				state = State.IDLE
@@ -87,11 +99,28 @@ func _physics_process(delta: float) -> void:
 		if state != State.ATTACK:
 			state = State.RUN
 			var dir = to_player.normalized()
-			velocity = dir * speed
+			velocity = dir * speed * GameData.enemy_speed + separation
 			move_and_slide()
 			_face_direction(dir)
 
 	_update_animation()
+
+
+# --- New function ---
+func _get_separation_force() -> Vector2:
+	var force := Vector2.ZERO
+	var separation_radius := 24.0   # how close before they push each other
+	for other in get_tree().get_nodes_in_group("enemies"):
+		if other == self:
+			continue
+		if other.state == State.DEAD:
+			continue
+		var diff = global_position - other.global_position
+		var dist = diff.length()
+		if dist > 0 and dist < separation_radius:
+			force += diff.normalized() * (separation_radius - dist)
+	return force * 5.0  # tweak this multiplier to make push stronger/weaker
+
 
 
 func _play_attack() -> void:

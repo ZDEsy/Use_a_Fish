@@ -24,8 +24,12 @@ zoom = Vector2(4, 4)
 visible = false
 position = Vector2(-236, 3)
 
+[node name="SpawnTimer" type="Timer" parent="."]
+
 [connection signal="changed_mode" from="Player" to="Player/UI" method="_on_player_changed_mode"]
 [connection signal="fish_caught" from="Player" to="." method="_on_player_fish_caught"]
 [connection signal="fish_caught" from="Player" to="Player/UI" method="_on_player_fish_caught"]
 [connection signal="HideE" from="House" to="Player" method="_on_house_hide_e"]
 [connection signal="ShowE" from="House" to="Player" method="_on_house_show_e"]
+[connection signal="interacted" from="House" to="Player" method="_on_house_interacted"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://vjivxpsl0koj"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_wa0h4"]
+[ext_resource type="Script" uid="uid://cl02qvcyo2tcj" path="res://scenes/Lionfish.gd" id="2_c51i7"]
+
+[node name="Lionfish" instance=ExtResource("1_wa0h4")]
+script = ExtResource("2_c51i7")
+shield_bullet_scene = null
+shield_radius = 80.0
+shield_speed = 180.0
+num_bullets = 6
+fish_name = "Lion Fish"
+rarity = "legendary"
+damage = 5
+col = 6
+row = 1
+automatic = true
+has_right_click = true

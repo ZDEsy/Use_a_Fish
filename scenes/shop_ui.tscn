@@ -1,14 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1gmlhvpxccg1"]
+[gd_scene load_steps=6 format=3 uid="uid://c1gmlhvpxccg1"]
 
 [ext_resource type="Texture2D" uid="uid://bjaa25anuibvf" path="res://assets/tilemap/07 Border 01.png" id="1_18xnp"]
 [ext_resource type="Script" uid="uid://csgkr36pt5gj0" path="res://scenes/shop_ui.gd" id="1_fs6yy"]
 [ext_resource type="PackedScene" uid="uid://by73sunycy2qe" path="res://scenes/shop_item.tscn" id="2_oixfk"]
+[ext_resource type="Texture2D" uid="uid://biqp7xufwi64q" path="res://assets/coin.png" id="4_crtus"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_18xnp"]
 atlas = ExtResource("1_18xnp")
 region = Rect2(64, 64, 64, 64)
 
-[node name="ShopUI" type="Control"]
+[node name="ShopUI" type="Control" groups=["shop_panels"]]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -50,3 +51,19 @@ vertical_scroll_mode = 3
 custom_minimum_size = Vector2(233, 246)
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="CoinLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -106.0
+offset_top = 63.0
+offset_right = -28.0
+offset_bottom = 81.0
+scale = Vector2(1.5, 1.5)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Coin" type="Sprite2D" parent="."]
+position = Vector2(-48, 51)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("4_crtus")

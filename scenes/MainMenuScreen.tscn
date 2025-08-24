@@ -1,0 +1,79 @@
+[gd_scene load_steps=2 format=3 uid="uid://3e7phqvgav8h"]
+
+[ext_resource type="Script" uid="uid://c2fpcas8r1gdp" path="res://scenes/main_menu_screen.gd" id="1_k1a11"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_k1a11")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 120.0
+offset_bottom = 47.0
+scale = Vector2(2, 2)
+text = "High score:
+5465465"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 12.0
+offset_top = 472.0
+offset_right = 144.0
+offset_bottom = 487.0
+scale = Vector2(2, 2)
+text = "Press to start"
+
+[node name="CheckBox" type="CheckBox" parent="."]
+offset_left = 888.0
+offset_top = -11.0
+offset_right = 912.0
+offset_bottom = 13.0
+scale = Vector2(2, 2)
+
+[node name="CheckBox2" type="CheckBox" parent="."]
+offset_left = 889.0
+offset_top = 97.0
+offset_right = 913.0
+offset_bottom = 121.0
+scale = Vector2(2, 2)
+button_pressed = true
+metadata/_edit_use_anchors_ = true
+
+[node name="CheckBox3" type="CheckBox" parent="."]
+offset_left = 890.0
+offset_top = 41.0
+offset_right = 914.0
+offset_bottom = 65.0
+scale = Vector2(2, 2)
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 727.0
+offset_top = -2.0
+offset_right = 821.0
+offset_bottom = 85.0
+scale = Vector2(1.5, 1.5)
+text = "Fullscreen
+
+Mute game
+
+Music"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Credts" type="Label" parent="."]
+offset_left = 394.0
+offset_top = 409.0
+offset_right = 919.0
+offset_bottom = 512.0
+text = "Credits:
+ZDEsy
+JDSherbert
+heltonyan -
+creativecommons.org/licenses/by/4.0/"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[connection signal="toggled" from="CheckBox" to="." method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="CheckBox2" to="." method="_on_music_toggled"]
+[connection signal="toggled" from="CheckBox3" to="." method="_on_sfx_toggled"]

@@ -216,13 +216,13 @@ region = Rect2(832, 0, 64, 64)
 atlas = ExtResource("5_vrys7")
 region = Rect2(896, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3l4rw"]
-atlas = ExtResource("6_y4h3y")
-region = Rect2(0, 0, 180, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_djy4s"]
 atlas = ExtResource("6_y4h3y")
 region = Rect2(180, 0, 180, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3l4rw"]
+atlas = ExtResource("6_y4h3y")
+region = Rect2(0, 0, 180, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_42ufw"]
 atlas = ExtResource("6_y4h3y")
@@ -483,10 +483,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3l4rw")
+"texture": SubResource("AtlasTexture_djy4s")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_djy4s")
+"texture": SubResource("AtlasTexture_3l4rw")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_42ufw")
@@ -529,7 +529,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"roll",
-"speed": 10.0
+"speed": 40.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -568,15 +568,17 @@ size = Vector2(20, 30)
 size = Vector2(20, 30)
 
 [node name="knight" instance=ExtResource("1_88s7e")]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.7, 0.7)
+collision_mask = 0
 script = ExtResource("2_wyqsr")
-roll_speed = 100.0
-roll_duration = 0.2
-roll_chance = 0.01
+health = 65
+speed = 75.0
+damage = 30
+attack_range = 40.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_q687m")
-animation = &"idle"
+animation = &"roll"
 
 [node name="CollisionShape2D" parent="HitArea" index="0"]
 position = Vector2(2, -3)
@@ -585,3 +587,5 @@ shape = SubResource("RectangleShape2D_lja41")
 [node name="CollisionShape2D" parent="." index="4"]
 position = Vector2(2, -3)
 shape = SubResource("RectangleShape2D_fdn1f")
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

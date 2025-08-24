@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c52k2v72eukae"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_e0dnl"]
+[ext_resource type="Script" uid="uid://bpvg4h5hrghnx" path="res://YellowTang.gd" id="2_kaw61"]
+
+[node name="YellowTang" instance=ExtResource("1_e0dnl")]
+script = ExtResource("2_kaw61")
+fish_name = "Yellow Tang"
+damage = 5
+col = 3

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxerwi8qpudvf"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_peu4x"]
+[ext_resource type="Script" uid="uid://blwkx0u7y3rb1" path="res://scenes/Sunfish.gd" id="2_yerb7"]
+
+[node name="Sunfish" instance=ExtResource("1_peu4x")]
+script = ExtResource("2_yerb7")
+fish_name = "Sunfish"
+rarity = "rare"
+damage = 4
+col = 2
+row = 1
+attack_cooldown = 0.1
+bullet_speed = 50.0
+automatic = true

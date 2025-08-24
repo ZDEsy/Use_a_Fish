@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://by73sunycy2qe"]
+[gd_scene load_steps=6 format=3 uid="uid://by73sunycy2qe"]
 
 [ext_resource type="Texture2D" uid="uid://nil8pdkbck7j" path="res://assets/tilemap/small_border.png" id="1_btjjm"]
 [ext_resource type="Script" uid="uid://xrpb6qartvec" path="res://shop_item.gd" id="1_lrx6i"]
+[ext_resource type="Texture2D" uid="uid://dleuq7f5j4by7" path="res://assets/tilemap/button_border.png" id="3_6gmg1"]
+[ext_resource type="Texture2D" uid="uid://ypqaklo0tn54" path="res://assets/tilemap/button_border_pressed.png" id="4_1d7d6"]
+[ext_resource type="Texture2D" uid="uid://cxwe2tew0ymhk" path="res://assets/tilemap/button_border_hover.png" id="5_goysm"]
 
 [node name="ShopItem" type="TextureRect"]
 offset_right = 130.0
@@ -14,32 +17,49 @@ script = ExtResource("1_lrx6i")
 
 [node name="Icon" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 18.0
-offset_top = 14.0
-offset_right = 54.0
-offset_bottom = 50.0
-scale = Vector2(0.5, 0.5)
+offset_left = 14.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 46.0
+scale = Vector2(0.7, 0.7)
 
 [node name="NameLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 64.0
-offset_top = 14.0
-offset_right = 136.0
-offset_bottom = 50.0
-scale = Vector2(0.5, 0.5)
+offset_left = 38.0
+offset_top = 8.0
+offset_right = 110.0
+offset_bottom = 44.0
+scale = Vector2(0.8, 0.8)
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PriceLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 150.0
-offset_top = 18.0
-offset_right = 190.0
-offset_bottom = 41.0
-scale = Vector2(0.5, 0.5)
+offset_left = 146.0
+offset_top = 14.0
+offset_right = 186.0
+offset_bottom = 37.0
+scale = Vector2(0.8, 0.8)
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="BuyButton" type="Button" parent="."]
+[node name="BuyButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 200.0
-offset_top = 6.0
-offset_right = 240.0
-offset_bottom = 74.0
-scale = Vector2(0.5, 0.5)
+offset_left = 180.0
+offset_right = 233.0
+offset_bottom = 47.0
+texture_normal = ExtResource("3_6gmg1")
+texture_pressed = ExtResource("4_1d7d6")
+texture_hover = ExtResource("5_goysm")
+
+[node name="BuyLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 188.0
+offset_top = 8.0
+offset_right = 224.0
+offset_bottom = 38.0
+text = "BUY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="BuyButton" to="." method="_on_buy_pressed"]

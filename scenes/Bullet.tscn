@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3xkrnf5st2uo"]
+[gd_scene load_steps=7 format=3 uid="uid://d3xkrnf5st2uo"]
 
 [ext_resource type="Texture2D" uid="uid://bx2vjiminxo5e" path="res://assets/bubble.png" id="1_hf8mt"]
 [ext_resource type="Script" uid="uid://bdcaej68cpk3s" path="res://scenes/bullet.gd" id="1_p1sfj"]
@@ -6,10 +6,25 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_p1sfj"]
 radius = 18.0
 
+[sub_resource type="Curve" id="Curve_p1sfj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4utqk"]
+curve = SubResource("Curve_p1sfj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_51h0o"]
+particle_flag_disable_z = true
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_4utqk")
+
 [node name="Bullet" type="Area2D" groups=["bullets"]]
 scale = Vector2(0.2, 0.2)
 script = ExtResource("1_p1sfj")
-damage = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_p1sfj")
@@ -18,5 +33,14 @@ shape = SubResource("CircleShape2D_p1sfj")
 texture = ExtResource("1_hf8mt")
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0.555545, 0.904169, 1, 1)
+z_index = 2
+emitting = false
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_51h0o")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

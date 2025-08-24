@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://yu0c7py8us4h"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_nap0a"]
+[ext_resource type="Script" uid="uid://ewwqdms1io20" path="res://scenes/Cardinal.gd" id="2_q81px"]
+
+[node name="Cardinal" instance=ExtResource("1_nap0a")]
+script = ExtResource("2_q81px")
+fish_name = "Cardinal Tetra"
+damage = 10
+col = 5
+row = 1
+attack_cooldown = 0.2

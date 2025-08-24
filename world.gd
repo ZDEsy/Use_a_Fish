@@ -8,7 +8,7 @@ var environment_noise: Noise
 @onready var player: CharacterBody2D = $"../Player"
 @onready var house_scene: Node2D = $"../House"
 
-var house_radius: int = 5
+var house_radius: int = 100
 
 var water_layer = 0
 var ground_layer = 1
@@ -34,10 +34,19 @@ var render_range = 20  # radius around player
 var tile_types : Dictionary = {}
 
 func _ready():
+	randomize()
+	
+	# Give each noise a random seed
+	noise_height_text.noise.seed = randi()
+	noise_environment_text.noise.seed = randi()
+	
 	noise = noise_height_text.noise
 	environment_noise = noise_environment_text.noise
+	
 	generate_world()
+	player.global_position = get_safe_player_spawn()
 	place_house_near_player()
+
 
 func _process(delta):
 	if player:
@@ -92,18 +101,43 @@ func place_house_near_player():
 		return
 
 	var player_cell = tile_map.local_to_map(player.global_position)
+	var best_cell: Vector2i = Vector2i.ZERO
+	var best_noise: float = -1.0
 
-	# Search in a square radius
 	for x in range(player_cell.x - house_radius, player_cell.x + house_radius):
 		for y in range(player_cell.y - house_radius, player_cell.y + house_radius):
 			var cell = Vector2i(x, y)
 
-			# Only on land tiles
-			if tile_types.get(cell, "water") == "land":
-				house_scene.visible = true
-				house_scene.position = tile_map.map_to_local(cell)
-				placed_house = true
-				print("House placed near player at:", cell)
-				print("House is at position: ", house_scene.global_position)
-				print("Player is at position: ", player.global_position)
-				return
+			# Only on land AND without trees
+			if tile_types.get(cell, "water") == "land" and tile_map.get_cell_source_id(environment_layer, cell) == -1:
+				var noise_val = noise.get_noise_2d(cell.x, cell.y)
+				if noise_val > best_noise:
+					best_noise = noise_val
+					best_cell = cell
+
+
+
+	if best_noise > 0.2:
+		house_scene.visible = true
+		house_scene.position = tile_map.map_to_local(best_cell)
+		placed_house = true
+		# Ensure shop trigger works
+		var area = house_scene.get_node("Area2D")
+		if area:
+			area.monitoring = true
+		print("House placed near player at:", best_cell, " noise:", best_noise)
+	else:
+		print("⚠ No good spot found near player!")
+
+
+func get_safe_player_spawn() -> Vector2:
+	for attempt in range(100):  # try 100 random points
+		var x = randi() % width - width / 2
+		var y = randi() % height - height / 2
+		var cell = Vector2i(x, y)
+		var noise_val = noise.get_noise_2d(x, y)
+		if tile_types.get(cell, "water") == "land" and noise_val > 0.3:
+			return tile_map.map_to_local(cell)
+	
+	# fallback if no good spot found
+	return tile_map.map_to_local(Vector2i(0,0))

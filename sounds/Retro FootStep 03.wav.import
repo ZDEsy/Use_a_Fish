@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dum8h7rr2jh3"
+path="res://.godot/imported/Retro FootStep 03.wav-100723a7f2245a056a5f4bd06728ea3b.sample"
+
+[deps]
+
+source_file="res://sounds/Retro FootStep 03.wav"
+dest_files=["res://.godot/imported/Retro FootStep 03.wav-100723a7f2245a056a5f4bd06728ea3b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

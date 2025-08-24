@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dekkojfj4r1a3"]
+
+[ext_resource type="PackedScene" uid="uid://b7krvlvasneb8" path="res://scenes/FishNode.tscn" id="1_v0ag5"]
+[ext_resource type="Script" uid="uid://chuuy084vomci" path="res://scenes/Angelfish.gd" id="2_1txun"]
+
+[node name="Angelfish" instance=ExtResource("1_v0ag5")]
+script = ExtResource("2_1txun")
+col = 7

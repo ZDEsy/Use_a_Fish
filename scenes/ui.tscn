@@ -1,66 +1,94 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnw58ycx2l4bu"]
+[gd_scene load_steps=13 format=3 uid="uid://bnw58ycx2l4bu"]
 
 [ext_resource type="Texture2D" uid="uid://d0iul6ho4xib2" path="res://assets/uiCircle.png" id="1_nt7q6"]
 [ext_resource type="Script" uid="uid://1tjseryb6joe" path="res://scenes/ui.gd" id="1_x4jx1"]
 [ext_resource type="Texture2D" uid="uid://daq8fw646j0i1" path="res://assets/player/fishing_rod.png" id="3_yev5y"]
-[ext_resource type="Texture2D" uid="uid://c0dn865nfs0" path="res://assets/equipWindow.png" id="4_gdt2y"]
-[ext_resource type="Script" uid="uid://c0trh08l6iq8w" path="res://scenes/texture_rect.gd" id="5_wm3ai"]
-[ext_resource type="Texture2D" uid="uid://bh4apsnpu0pmv" path="res://assets/obdelni.png" id="6_8dubc"]
+[ext_resource type="Texture2D" uid="uid://nil8pdkbck7j" path="res://assets/tilemap/small_border.png" id="4_p7vwb"]
+[ext_resource type="Texture2D" uid="uid://dyllt6xrqqrc4" path="res://assets/tilemap/small_border_pressed.png" id="5_cgfq5"]
+[ext_resource type="Texture2D" uid="uid://cm0djb25hfs5u" path="res://assets/tilemap/small_border_hover.png" id="6_7dvkv"]
 [ext_resource type="Script" uid="uid://cfbqgkcn13g0i" path="res://scenes/texture_rect_2.gd" id="6_p7vwb"]
+[ext_resource type="PackedScene" uid="uid://t2hjdpxqwp0" path="res://scenes/caught_ui.tscn" id="7_p7vwb"]
 [ext_resource type="PackedScene" uid="uid://c1gmlhvpxccg1" path="res://scenes/shop_ui.tscn" id="8_ktti3"]
+[ext_resource type="PackedScene" uid="uid://bhhtkgjpe151l" path="res://scenes/health.tscn" id="10_7dvkv"]
+[ext_resource type="PackedScene" uid="uid://3e7phqvgav8h" path="res://scenes/MainMenuScreen.tscn" id="11_vdcm2"]
+[ext_resource type="PackedScene" uid="uid://dpcv7xvwkk0w0" path="res://scenes/TipIcon.tscn" id="12_6rmj2"]
 
 [node name="UI" type="Node2D"]
+z_index = 15
 script = ExtResource("1_x4jx1")
 
-[node name="UiCircle" type="Sprite2D" parent="."]
-position = Vector2(113, 69)
-scale = Vector2(0.5, 0.5)
+[node name="GameUI" type="Node2D" parent="."]
+
+[node name="UiCircle" type="Sprite2D" parent="GameUI"]
+position = Vector2(122.32, 60.39)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_nt7q6")
 
-[node name="UiCircle2" type="Sprite2D" parent="."]
-position = Vector2(132, 50)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_nt7q6")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(113, 69)
+[node name="Sprite2D" type="Sprite2D" parent="GameUI"]
+position = Vector2(123, 59)
 scale = Vector2(1, 1.106)
 texture = ExtResource("3_yev5y")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-offset_left = -33.0
-offset_top = -30.0
-offset_right = 34.0
-offset_bottom = 35.0
-mouse_filter = 0
-mouse_force_pass_scroll_events = false
-texture = ExtResource("4_gdt2y")
-stretch_mode = 4
-script = ExtResource("5_wm3ai")
-
-[node name="NewFishSprite" type="Sprite2D" parent="TextureRect"]
-position = Vector2(33, 30)
-scale = Vector2(2, 2)
-
-[node name="TextureRect2" type="TextureRect" parent="."]
-offset_left = -112.0
-offset_top = 63.0
-offset_right = -72.0
-offset_bottom = 103.0
+[node name="TextureRect2" type="TextureButton" parent="GameUI"]
+offset_left = -136.0
+offset_top = 61.0
+offset_right = -13.0
+offset_bottom = 107.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("4_p7vwb")
+texture_pressed = ExtResource("5_cgfq5")
+texture_hover = ExtResource("6_7dvkv")
 script = ExtResource("6_p7vwb")
 
-[node name="Sprite2D" type="Sprite2D" parent="TextureRect2"]
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("6_8dubc")
+[node name="Label" type="Label" parent="GameUI/TextureRect2"]
+layout_mode = 0
+offset_right = 123.0
+offset_bottom = 47.0
+text = "Start fight"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="ShopUI" parent="." instance=ExtResource("8_ktti3")]
+[node name="Label2" type="Label" parent="GameUI/TextureRect2"]
+visible = false
+layout_mode = 0
+offset_left = 16.6667
+offset_top = -23.3333
+offset_right = 101.667
+offset_bottom = -8.33333
+text = "No weapon"
+
+[node name="ShopUI" parent="GameUI" instance=ExtResource("8_ktti3")]
+visible = false
 offset_left = -57.0
 offset_top = -62.0
 offset_right = -57.0
 offset_bottom = -37.0
 
-[connection signal="fish_picked" from="TextureRect" to="." method="_on_texture_rect_fish_picked"]
+[node name="CaughtUI" parent="GameUI" instance=ExtResource("7_p7vwb")]
+visible = false
+scale = Vector2(0.5, 0.5)
+
+[node name="NewFishSprite" type="Sprite2D" parent="GameUI/CaughtUI"]
+scale = Vector2(2, 2)
+
+[node name="Health" parent="GameUI" instance=ExtResource("10_7dvkv")]
+position = Vector2(-128, -61)
+scale = Vector2(0.7, 0.7)
+
+[node name="FirstTip" parent="GameUI" instance=ExtResource("12_6rmj2")]
+position = Vector2(131, 38)
+scale = Vector2(0.2, 0.2)
+
+[node name="SecondTip" parent="GameUI" instance=ExtResource("12_6rmj2")]
+position = Vector2(132, 20)
+scale = Vector2(0.2, 0.2)
+
+[node name="MainMenu" parent="." instance=ExtResource("11_vdcm2")]
+position = Vector2(-137, -75)
+scale = Vector2(0.3, 0.3)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+
+[connection signal="sell_pressed" from="GameUI/CaughtUI" to="." method="_on_caught_ui_sell_pressed"]
+[connection signal="use_pressed" from="GameUI/CaughtUI" to="." method="_on_caught_ui_use_pressed"]

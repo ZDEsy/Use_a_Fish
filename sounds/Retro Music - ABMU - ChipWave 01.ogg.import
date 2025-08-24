@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bgf4o4wwjrdxf"
+path="res://.godot/imported/Retro Music - ABMU - ChipWave 01.ogg-c09adacb86af078e957ffa772b4b1cfe.oggvorbisstr"
+
+[deps]
+
+source_file="res://sounds/Retro Music - ABMU - ChipWave 01.ogg"
+dest_files=["res://.godot/imported/Retro Music - ABMU - ChipWave 01.ogg-c09adacb86af078e957ffa772b4b1cfe.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

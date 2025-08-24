@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://l13cvu78h27d"]
+
+[ext_resource type="PackedScene" uid="uid://d3xkrnf5st2uo" path="res://scenes/Bullet.tscn" id="1_icmix"]
+[ext_resource type="Script" uid="uid://cmtmjq23h78bh" path="res://zigzag_bullet.gd" id="2_ruwwd"]
+
+[node name="ZigzagBullet" instance=ExtResource("1_icmix")]
+script = ExtResource("2_ruwwd")
+zigzag_amplitude = 30.0
+zigzag_frequency = 8.0
+speed = 50.0

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://du63wiag25v3c"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_n8t6t"]
+[ext_resource type="Script" uid="uid://b2rctc0kbwrn1" path="res://scenes/RedShiner.gd" id="2_7q6p6"]
+
+[node name="BasicBitch" instance=ExtResource("1_n8t6t")]
+script = ExtResource("2_7q6p6")
+fish_name = "Red Shiner"
+damage = 4

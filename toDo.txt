@@ -1,9 +1,15 @@
-ui update fight scene
-more weapons
+stonefish crashing
+lionfish crashing
+witch projectile damaging witch
+player death main scene rotating whole ui
 
 
 
 
-2 mody:
-- normalni mas urcity počet kol nez musíš do areny bojovat několik vln nepratel a pak znovu
-- nekonecny kde rybaris jak dlouho chces a pak bojuješ na život a na smrt jak dlouho chces
+FIXED:
+-fix label in fight scene
+-knight rolling is shit
+-witch throwable doesnt do damage
+-settings sfx
+-
+-

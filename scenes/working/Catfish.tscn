@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpetidgi4oeoh"]
+
+[ext_resource type="PackedScene" uid="uid://b7krvlvasneb8" path="res://scenes/FishNode.tscn" id="1_8mu46"]
+[ext_resource type="Script" uid="uid://mau3jylrjxea" path="res://scenes/Catfish.gd" id="2_0dfry"]
+
+[node name="Catfish" instance=ExtResource("1_8mu46")]
+script = ExtResource("2_0dfry")
+pellets = 5
+spread_angle = 30.0
+col = 11
+automatic = true

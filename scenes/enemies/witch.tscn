@@ -353,9 +353,15 @@ size = Vector2(19, 28)
 size = Vector2(19, 28)
 
 [node name="witch" instance=ExtResource("1_dp6bp")]
+scale = Vector2(1.5, 1.5)
+collision_mask = 0
 script = ExtResource("2_poo5m")
 projectile_scene = ExtResource("3_v4d8q")
-attack_range = 150.0
+health = 35
+speed = 70.0
+damage = 20
+attack_range = 100.0
+attack_cooldown = 1.5
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(0.5, 0.5)

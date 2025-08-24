@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c18b03t0yia41"]
+
+[ext_resource type="PackedScene" uid="uid://bnpp8dgwmwmf1" path="res://scenes/FishNode.tscn" id="1_qboyk"]
+[ext_resource type="Script" uid="uid://c6d7em8x6yfrx" path="res://scenes/Banded.gd" id="2_pee8n"]
+
+[node name="Banded" instance=ExtResource("1_qboyk")]
+script = ExtResource("2_pee8n")
+col = 8

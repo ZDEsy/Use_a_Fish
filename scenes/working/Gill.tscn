@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk6pw4w2fob8b"]
+
+[ext_resource type="PackedScene" uid="uid://b7krvlvasneb8" path="res://scenes/FishNode.tscn" id="1_d13ix"]
+[ext_resource type="Script" uid="uid://cr271dd427rr1" path="res://scenes/Gill.gd" id="2_8cu8h"]
+
+[node name="Gill" instance=ExtResource("1_d13ix")]
+script = ExtResource("2_8cu8h")
+col = 5
+attack_cooldown = 0.1
+automatic = true

@@ -1,5 +1,11 @@
 extends Enemy
 
+@onready var arena_area: Area2D = get_tree().current_scene.get_node("Area2D")
+@export var wander_speed: float = 60.0
+@export var wander_change_interval: float = 2.0
+var _wander_timer: float = 0.0
+var _wander_direction: Vector2 = Vector2.ZERO
+
 func _ready():
 	anim_controller.animations = {
 		"run": "run",
@@ -7,3 +13,47 @@ func _ready():
 		"die": "die"
 	}
 	super._ready()
+
+func _physics_process(delta: float) -> void:
+	if state == State.DEAD:
+		return
+
+	# --- WANDERING ---
+	_wander_timer -= delta
+	if _wander_timer <= 0.0:
+		# Pick new random direction
+		_wander_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+		_wander_timer = wander_change_interval
+
+	# Move bat
+	velocity = _wander_direction * wander_speed
+	move_and_slide()
+
+	# Keep inside arena
+	_stay_inside_arena()
+	_update_animation()
+
+func _stay_inside_arena() -> void:
+	if not arena_area:
+		return
+	var shape = arena_area.get_node("CollisionShape2D").shape
+
+	if shape is CircleShape2D:
+		var max_dist = shape.radius
+		var to_center = global_position - arena_area.global_position
+		if to_center.length() > max_dist:
+			# turn back toward center
+			_wander_direction = (-to_center).normalized()
+
+	elif shape is RectangleShape2D:
+		var rect = Rect2(
+			arena_area.global_position - shape.extents,
+			shape.extents * 2.0
+		)
+		if not rect.has_point(global_position):
+			_wander_direction = (arena_area.global_position - global_position).normalized()
+
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if animated_sprite_2d.animation == "attack" and animated_sprite_2d.frame == 7: # <-- frame where hit connects
+		_attack_hit()

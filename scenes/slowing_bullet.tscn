@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://gsiqcj3jw0km"]
+
+[ext_resource type="PackedScene" uid="uid://d3xkrnf5st2uo" path="res://scenes/Bullet.tscn" id="1_5aele"]
+[ext_resource type="Script" uid="uid://rs6ark5faojf" path="res://slowing_bullet.gd" id="2_i5ps2"]
+
+[node name="SlowingBullet" instance=ExtResource("1_5aele")]
+script = ExtResource("2_i5ps2")
+deceleration = 1000.0

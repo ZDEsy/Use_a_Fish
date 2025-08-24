@@ -145,7 +145,6 @@ texture = ExtResource("2_4wyf3")
 14:15/0 = 0
 15:15/0 = 0
 16:15/0 = 0
-16:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 17:15/0 = 0
 4:16/0 = 0
 5:16/0 = 0
@@ -204,6 +203,7 @@ texture = ExtResource("2_4wyf3")
 
 [sub_resource type="TileSet" id="TileSet_71j4m"]
 physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 6
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "water"
 terrain_set_0/terrain_0/color = Color(1, 0, 0, 1)

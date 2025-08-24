@@ -13,7 +13,8 @@ func _ready() -> void:
 	area.body_exited.connect(_on_body_exited)
 
 func _on_body_entered(body):
-	print("Body entered")
+	print("Body entered in da house")
+	print(body)
 	if body.is_in_group("player"):
 		print("Player entered")
 		player_inside = true

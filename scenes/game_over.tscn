@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://bss4n6dk0yrw0"]
+
+[ext_resource type="Script" uid="uid://cgmcaj0dh3md7" path="res://scenes/game_over.gd" id="1_racf3"]
+[ext_resource type="Texture2D" uid="uid://nil8pdkbck7j" path="res://assets/tilemap/small_border.png" id="1_tbwuq"]
+[ext_resource type="Texture2D" uid="uid://dyllt6xrqqrc4" path="res://assets/tilemap/small_border_pressed.png" id="2_racf3"]
+[ext_resource type="Texture2D" uid="uid://cm0djb25hfs5u" path="res://assets/tilemap/small_border_hover.png" id="3_7m3ot"]
+
+[node name="GameOver" type="Node2D"]
+z_index = 35
+scale = Vector2(0.4, 0.4)
+script = ExtResource("1_racf3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.678431)
+offset_left = -1018.0
+offset_top = -767.0
+offset_right = 1350.0
+offset_bottom = 916.0
+color = Color(1, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -127.0
+offset_top = -59.0
+offset_right = -42.0
+offset_bottom = -44.0
+scale = Vector2(3, 3)
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -407.0
+offset_top = 14.0
+offset_right = -135.0
+offset_bottom = 29.0
+scale = Vector2(3, 3)
+text = "Highscore: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="."]
+process_mode = 3
+offset_left = -61.0
+offset_top = 114.0
+offset_right = 62.0
+offset_bottom = 160.0
+texture_normal = ExtResource("1_tbwuq")
+texture_pressed = ExtResource("2_racf3")
+texture_hover = ExtResource("3_7m3ot")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="TextureButton"]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 123.0
+offset_bottom = 47.0
+text = "MENU"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
