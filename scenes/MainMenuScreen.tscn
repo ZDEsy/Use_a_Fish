@@ -1,28 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://3e7phqvgav8h"]
+[gd_scene load_steps=4 format=3 uid="uid://3e7phqvgav8h"]
 
 [ext_resource type="Script" uid="uid://c2fpcas8r1gdp" path="res://scenes/main_menu_screen.gd" id="1_k1a11"]
+[ext_resource type="Texture2D" uid="uid://dnoi0ihhjos0l" path="res://assets/info/info_icon.png" id="2_2u07j"]
+[ext_resource type="PackedScene" uid="uid://cgawhqtm2d0oc" path="res://scenes/info.tscn" id="3_dlm3n"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_k1a11")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 16.0
-offset_top = 14.0
-offset_right = 120.0
-offset_bottom = 47.0
+offset_left = -9.0
+offset_top = 24.0
+offset_right = 95.0
+offset_bottom = 57.0
 scale = Vector2(2, 2)
 text = "High score:
 5465465"
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="Label2" type="Label" parent="."]
-offset_left = 12.0
-offset_top = 472.0
-offset_right = 144.0
-offset_bottom = 487.0
+offset_left = -16.0
+offset_top = 473.0
+offset_right = 116.0
+offset_bottom = 488.0
 scale = Vector2(2, 2)
 text = "Press to start"
+metadata/_edit_use_anchors_ = true
 
 [node name="CheckBox" type="CheckBox" parent="."]
 offset_left = 888.0
@@ -74,6 +78,19 @@ creativecommons.org/licenses/by/4.0/"
 horizontal_alignment = 2
 vertical_alignment = 2
 
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = -12.0
+offset_top = -13.0
+offset_right = 19.0
+offset_bottom = 18.0
+texture_normal = ExtResource("2_2u07j")
+metadata/_edit_use_anchors_ = true
+
+[node name="Info" parent="." instance=ExtResource("3_dlm3n")]
+visible = false
+position = Vector2(482, 254)
+
 [connection signal="toggled" from="CheckBox" to="." method="_on_fullscreen_toggled"]
 [connection signal="toggled" from="CheckBox2" to="." method="_on_music_toggled"]
 [connection signal="toggled" from="CheckBox3" to="." method="_on_sfx_toggled"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

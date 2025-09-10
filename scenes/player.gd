@@ -110,7 +110,8 @@ func _ready():
 
 func _physics_process(delta):
 	get_input()
-	if get_tree().current_scene.get_node("World"): _check_water_state()
+	if get_tree().current_scene.has_node("World"):
+		_check_water_state()
 
 func _check_water_state():
 
@@ -133,7 +134,7 @@ func _check_water_state():
 
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
-	if(not casted and not is_casting):
+	if(not casted and not is_casting and not bar_bar.visible and not circle_bar.visible):
 		if input_direction.x < 0:
 			animated_sprite_2d.flip_h = true
 			animated_sprite_2d.animation = "run_side"
@@ -498,7 +499,7 @@ func take_damage(amount: int, source: Node = null) -> void:
 		return
 	other_player.stream = hurt_sound
 	other_player.play()
-	health -= floor(amount * GameData.enemy_damage)
+	health -= max(0, floor(amount * GameData.enemy_damage))
 	GameData.health = health  # per-player health if using co-op
 
 	_flash_screen()
@@ -531,16 +532,21 @@ func die() -> void:
 	
 	var tween := create_tween()
 	tween.tween_property(animated_sprite_2d, "rotation_degrees", 720, 0.6)
-	tween.tween_property(animated_sprite_2d, "position:y", position.y + 120, 0.6)
 	tween.tween_property(animated_sprite_2d, "modulate:a", 0.0, 0.6)
 
-	
 	await tween.finished
 	get_tree().paused = true
-
-	var death_screen_scene = preload("res://scenes/game_over.tscn")
-	var death_screen = death_screen_scene.instantiate()
-	get_tree().current_scene.add_child(death_screen)
+	var current_scene = get_tree().current_scene
+	if current_scene.name != "FightScene":  # <-- replace with the actual name of your fight scene
+		var death_screen_scene = preload("res://scenes/game_over.tscn")
+		var death_screen = death_screen_scene.instantiate()
+		death_screen.global_position = global_position
+		
+		current_scene.add_child(death_screen)
+	else:
+		var parent = get_tree().current_scene
+		if parent.has_node("GameOver"):
+			parent.get_node("GameOver").visible = true
 
 func _on_house_show_e() -> void:
 	ekey.visible = true

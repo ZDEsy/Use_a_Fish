@@ -7,6 +7,7 @@ extends Node2D
 @onready var spawn_area: Area2D = $Area2D          # Rectangle area where enemies can spawn
 @onready var spawn_timer: Timer = $SpawnTimer      # ticks to spawn enemies DURING a wave
 @onready var wave_timer:  Timer = $WaveTimer       # counts down the DURATION of a wave
+@onready var game_over: Node2D = $GameOver
 
 # --------------------------------
 # Enemy scenes (tiers by difficulty)

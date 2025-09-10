@@ -4,7 +4,7 @@ extends Node
 # Player-related upgrades
 # ----------------------
 var walk_speed: float = 100.0
-var catching_speed: float = 15.0
+var catching_speed: float = 14.0
 var bite_time: float = 15.0
 var health: int = 100
 
@@ -33,7 +33,7 @@ var wave_count: int = 0
 # ----------------------
 # Economy
 # ----------------------
-var coins: int = 1000
+var coins: int = 0
 
 # ----------------------
 # Upgrade helpers
@@ -96,3 +96,39 @@ func load_game():
 	for key in SAVE_KEYS:
 		if data.has(key):
 			set(key, data[key])
+
+func reset_to_base() -> void:
+		# ----------------------
+	# Player-related upgrades
+	# ----------------------
+	walk_speed = 100.0
+	catching_speed = 14.0
+	bite_time = 15.0
+	health = 100
+
+	# ----------------------
+	# Enemy-related upgrades
+	# ----------------------
+	enemy_speed = 1.0
+	enemy_damage = 1.0
+	enemy_spawn_rate = 1.0  # enemies per X seconds
+	wave_set_index = 0
+
+	# ----------------------
+	# Fish-related upgrades
+	# ----------------------
+	fish_damage = 1.0
+	fish_rarity_multiplier = 1.0
+	better_fish_chance = 0.1
+
+	# ----------------------
+	# Scores
+	# ----------------------
+	score = 0
+	wave_count  = 0
+
+	# ----------------------
+	# Economy
+	# ----------------------
+	coins = 0
+	save_game()

@@ -28,9 +28,6 @@ func process_automatic_fire(global_pos: Vector2, global_mouse_position: Vector2,
 		var mouse_pos = global_mouse_position
 		var direction = (mouse_pos - global_pos).normalized()
 
-		# Flip backwards (180°)
-		direction = direction.rotated(PI)
-
 		if _can_attack:
 			SoundManager.play_shoot()
 		attack(global_pos, direction, owner)

@@ -230,9 +230,10 @@ size = Vector2(33, 11)
 scale = Vector2(0.6, 0.6)
 collision_mask = 0
 script = ExtResource("2_jofwc")
-wander_speed = 60.0
+wander_speed = 90.0
 wander_change_interval = 2.0
-health = 25
+wander_mode = false
+health = 12
 attack_range = 25.0
 attack_cooldown = 0.5
 

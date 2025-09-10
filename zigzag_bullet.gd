@@ -1,27 +1,26 @@
 extends Bullet
 
-@export var zigzag_amplitude: float = 30.0   # distance left/right
-@export var zigzag_frequency: float = 4.0    # switches per second
+@export var zigzag_amplitude: float = 5.0   # distance left/right
+@export var zigzag_frequency: float = 2.0   # oscillations per second
 
 var _time_alive: float = 0.0
-var _start_position: Vector2
+var _forward_pos: Vector2
 
 func _ready() -> void:
-	_start_position = global_position
+	_forward_pos = global_position
 
 func _process(delta: float) -> void:
 	_time_alive += delta
 
-	# Forward motion
-	var forward: Vector2 = direction.normalized() * speed * _time_alive
+	# Step forward incrementally
+	_forward_pos += direction.normalized() * speed * delta
 
-	# Sharp side-to-side: square wave instead of sine
+	# Smooth zigzag with sine wave
 	var perpendicular: Vector2 = direction.orthogonal().normalized()
-	var side_sign: float = sign(sin(_time_alive * zigzag_frequency * TAU)) # +1.0 or -1.0
-	var offset: float = side_sign * zigzag_amplitude
+	var offset: float = sin(_time_alive * zigzag_frequency * TAU) * zigzag_amplitude
 
 	# Apply both
-	global_position = _start_position + forward + perpendicular * offset
+	global_position = _forward_pos + perpendicular * offset
 
 	# Lifetime check
 	if _time_alive >= lifetime:

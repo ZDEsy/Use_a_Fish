@@ -191,3 +191,24 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 				state = State.RUN
 	elif anim_name == "roll" and state == State.ROLL:
 		state = State.IDLE
+
+func handle_combat(delta: float) -> void:
+	if state == State.DEAD:
+		return
+	if not player:
+		return
+
+	var to_player = player.global_position - global_position
+	var distance = to_player.length()
+
+	if distance <= attack_range:
+		velocity = Vector2.ZERO
+		_attack_timer -= delta
+		if _attack_timer <= 0.0:
+			_attack_timer = attack_cooldown
+			_play_attack()
+		else:
+			if state != State.ATTACK:
+				state = State.IDLE
+
+	_update_animation()

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://hekvl5k8gnfx"]
+[gd_scene load_steps=10 format=3 uid="uid://hekvl5k8gnfx"]
 
 [ext_resource type="Script" uid="uid://bxxow6kwoksvi" path="res://scenes/fight_scene.gd" id="1_keksv"]
 [ext_resource type="Texture2D" uid="uid://bgcvoslx61d0w" path="res://assets/tilemap/tilemap.png" id="1_p8b18"]
 [ext_resource type="PackedScene" uid="uid://wfm3hps4l4j3" path="res://scenes/player.tscn" id="3_nff5x"]
 [ext_resource type="PackedScene" uid="uid://c0dnrqkpq838v" path="res://scenes/fish_scene_ui.tscn" id="4_gksjr"]
 [ext_resource type="PackedScene" uid="uid://bhhtkgjpe151l" path="res://scenes/health.tscn" id="5_7aqs0"]
+[ext_resource type="PackedScene" uid="uid://bss4n6dk0yrw0" path="res://scenes/game_over.tscn" id="6_bu534"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_keksv"]
 texture = ExtResource("1_p8b18")
@@ -284,5 +285,9 @@ scale = Vector2(2.5, 2.5)
 
 [node name="Health" parent="." instance=ExtResource("5_7aqs0")]
 position = Vector2(-171, -80)
+
+[node name="GameOver" parent="." instance=ExtResource("6_bu534")]
+visible = false
+position = Vector2(1, -18)
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

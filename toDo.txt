@@ -1,8 +1,6 @@
-
 flying fish no zigzag
-
-
-
+wi-fi fish nothing like what?
+walking while catching fish
 
 FIXED:
 -fix label in fight scene
@@ -13,6 +11,8 @@ FIXED:
 -witch projectile damaging witch
 -lionfish crashing
 -stonefish crashing
--
--
--
+-bat flipping in the direction he is going
+-bat not wondering when in main scene
+-player world node not found
+- bat not moving, not damaging
+-game over screen moved in fight scene

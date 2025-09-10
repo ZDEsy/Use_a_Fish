@@ -4,6 +4,10 @@ extends Node2D
 @onready var fullscreen_checkbox: CheckBox = $CheckBox
 @onready var music_checkbox: CheckBox = $CheckBox2
 @onready var sfx_checkbox: CheckBox = $CheckBox3
+@onready var info_button: TextureButton = $TextureButton
+@onready var info: Node2D = $Info
+
+
 
 func _on_fullscreen_toggled(pressed: bool):
 	DisplayServer.window_set_mode(DisplayServer.WindowMode.WINDOW_MODE_EXCLUSIVE_FULLSCREEN if pressed else DisplayServer.WindowMode.WINDOW_MODE_WINDOWED)
@@ -17,3 +21,7 @@ func _on_sfx_toggled(pressed: bool) -> void:
 func mute_all(mute: bool) -> void:
 	var master_idx = AudioServer.get_bus_index("Master")
 	AudioServer.set_bus_mute(master_idx, mute)
+
+
+func _on_texture_button_pressed() -> void:
+	info.visible = true

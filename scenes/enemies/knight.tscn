@@ -571,8 +571,8 @@ size = Vector2(20, 30)
 scale = Vector2(0.7, 0.7)
 collision_mask = 0
 script = ExtResource("2_wyqsr")
-health = 65
-speed = 75.0
+health = 32
+speed = 85.0
 damage = 30
 attack_range = 40.0
 
