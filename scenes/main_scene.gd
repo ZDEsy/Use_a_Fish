@@ -14,7 +14,7 @@ extends Node2D
 ]
 var enemies_spawned: int = 0
 # Spawn rate control
-var spawn_rate: float = 120.0      
+var spawn_rate: float = 60.0      
 var spawn_acceleration: float = 0.5  
 
 # Spawn area relative to player

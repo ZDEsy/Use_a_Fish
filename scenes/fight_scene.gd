@@ -22,8 +22,8 @@ extends Node2D
 # -----------------------------
 const TOTAL_WAVES := 10                      # waves per “set”
 @export var base_wave_duration: float = 30.0 # seconds each wave lasts (time-based, not kill-based)
-@export var base_enemies_per_wave: int = 10   # starting enemy count in wave 1
-@export var enemies_growth_per_wave: int = 2 # +2 enemies each next wave
+@export var base_enemies_per_wave: int = 20   # starting enemy count in wave 1
+@export var enemies_growth_per_wave: int = 4 # +2 enemies each next wave
 @export var set_enemy_growth: float = 0.25   # +25% enemies for each completed set of 10
 
 # Optional small pause between waves (set to 0 for no pause)

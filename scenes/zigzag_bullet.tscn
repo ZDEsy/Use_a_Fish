@@ -5,6 +5,6 @@
 
 [node name="ZigzagBullet" instance=ExtResource("1_icmix")]
 script = ExtResource("2_ruwwd")
-zigzag_amplitude = 30.0
+zigzag_amplitude = 0.5
 zigzag_frequency = 8.0
 speed = 50.0

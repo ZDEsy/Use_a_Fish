@@ -5,4 +5,5 @@
 
 [node name="Banded" instance=ExtResource("1_qboyk")]
 script = ExtResource("2_pee8n")
+fish_name = "Banded"
 col = 8
